@@ -35,3 +35,6 @@ Working features
 
 Currently working on API
 	'WatchGroup/api/ApiQueryWatchGroup.php' ;
+	
+I have left out Validation for the prototype.
+For example, duplication of groupnames,pages etc.

@@ -30,6 +30,7 @@ class SpecialEditWatchGroup extends SpecialPage {
 		$this->outputHeader();
 		$list = SpecialWatchGroup::ExtractWatchGroup($this->user);
 		$this->CreateEditForm($list) ;
+		$this->addViewSubtitle();
 	}
 
 	
@@ -96,5 +97,11 @@ class SpecialEditWatchGroup extends SpecialPage {
 			array( 'wp_user' => $this->getUser()->getId() ),
 			__METHOD__
 		);
-	}	
+	}
+
+	public function addViewSubtitle(){
+		$subtitle = Linker::linkKnown(
+				SpecialPage::getTitleFor( "WatchGroup" ),"ViewWatchGroup"  	);
+		$this->output->addSubtitle($subtitle) ;
+	}
 }
