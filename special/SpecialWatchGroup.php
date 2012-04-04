@@ -45,12 +45,11 @@ class SpecialWatchGroup extends SpecialPage {
 		/*
 		 * Checking whether a new group is added
 		 */
-		$newgroup 	= $this->request->getText( 'newgroup', null ) ;	
-		if(!is_null($newgroup) && $newgroup!=''){
-			$newGroupProps['name'] = $newgroup ;
-			$newGroupProps['visibleToAll'] = $this->request->getBool('visible') ; 
-			$newGroupProps['AnyUserCanEdit'] = $this->request->getBool('editable') ;
-			$this->addNewGroup($newGroupProps) ;
+		$newGroup 	= $this->request->getText( 'newgroup', null ) ;	
+		if(!is_null($newGroup) && $newGroup!=''){
+			$visibility	= $this->request->getBool('visible') ; 
+			$editable	= $this->request->getBool('editable') ;
+			self::addNewGroup($this->user  ,$newGroup ,$visibility , $editable ) ;
 		}
 		
 		/*
@@ -68,17 +67,42 @@ class SpecialWatchGroup extends SpecialPage {
 
 	}
 	
-	public function addNewGroup($newGroupProps ){
+public static function addNewGroup($user ,$newGroup , $visibilty = 0 , $editable = 0 ){
 		$dbw = wfGetDB( DB_MASTER );
 		$rows = array(
-					'wg_user' => $this->user->getId(),
-					'wg_groupname' => $newGroupProps['name'] , 
-					'wg_visible_group' => $newGroupProps['visibleToAll'],
-					'wg_public_editable' => $newGroupProps['AnyUserCanEdit'],
+					'wg_user' => $user->getId(),
+					'wg_groupname' => $newGroup , 
+					'wg_visible_group' => $visibilty,
+					'wg_public_editable' => $editable,
 				);				
 		$dbw->insert( 'watchgroups',$rows,__METHOD__, 'IGNORE');
-		$this->output->addHTML( "Groupname : {$newGroupProps['name']} added to your list of groups" ) ;
+		
+		if($dbw->affectedRows()){
+			return true ;
+		}
+		else{
+			return false ;
+		}
+		
 	}
+	
+	public static function removeGroup($user ,$Group ){
+		$dbw = wfGetDB( DB_MASTER );
+		$rows = array(
+					'wg_user' => $user->getId(),
+					'wg_groupname' => $Group , 
+				);				
+		$dbw->delete( 'watchgroups',$rows,__METHOD__, 'IGNORE');
+		
+		if($dbw->affectedRows()){
+			return true ;
+		}
+		else{
+			return false ;
+		}
+		
+	}
+	
 	public function addGroupForm(){
 		$this->addnewline() ;
 		$newline = '<br>' ;

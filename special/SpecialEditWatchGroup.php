@@ -1,4 +1,3 @@
-
 <?php
 /**
  * 
@@ -19,10 +18,6 @@ class SpecialEditWatchGroup extends SpecialPage {
 
 	public function execute($mode){
 
-		/**
-		 *	Check if user is anonymous?
-		 *	If User is Anon return with a msg displaying to login
-		 */
 		$this->user 	= $this->getUser() ;
 		if( $this->user->isAnon() ) {
 			SpecialWatchGroup::userIsAnon() ;
@@ -35,41 +30,71 @@ class SpecialEditWatchGroup extends SpecialPage {
 		$this->outputHeader();
 		$list = SpecialWatchGroup::ExtractWatchGroup($this->user);
 		$this->CreateEditForm($list) ;
-		}
+	}
 
-	/**
-	 *	This function will be called when the submit button of thr form is pressed	
-	 * 
-	 *	To display pages with checkbox next to them.
-	 *	Delete all the groups marked with the checkbox
-	 */
-	public function Edit(){
-	/*
-	 * Extract pages checked from the form
-	 * 
-	 * Remove those pages from the Table:watchgroup
-	 * Add the deleted pages to Table:watchgroup_deleted 
-	 */
-
-		//Display the success(or error) msg
-		//Display the groups which have been created/deleted
+	
+	//This function is taken from SpecialEditWatchList
+	public function CreateEditForm($list){
+		$titles = implode( $list, "\n" );
+		$fields = array(
+			'Titles' => array(
+				'type' => 'textarea',
+				'label-message' => 'watchlistedit-raw-titles',
+				'default' => $titles,
+			),
+		);
+		$form = new HTMLForm( $fields, $this->getContext() );
+		$form->setTitle( $this->getTitle() );
+		$form->setSubmitCallback( array( $this, 'submitRaw' ) );
+		$form->show();
 	}
 	
-	public function CreateEditForm($list){
-		
-		$form	 = Xml::openElement( 'form', array( 
-											'method'	=> 'post',
-											'action'	=> $this->getTitle()->getLocalUrl(),
-											'id'		=> 'mw-watchgroup-edit-form' )) ;
-		$count = 1;		
-		foreach ($list as $page) {
-			$title = Title::newFromText($page) ;
-			$linkedtitle = Linker::linkKnown(
-				SpecialPage::getTitleFor( "WatchParticularGroup/$page" ),$page );
-			$form	.= Xml::checkLabel($title, $page, "", array()).'<br>' ;
+	
+	public function submitRaw( $data ){
+		$wanted = explode( "\n" ,trim($data['Titles']));
+		$current = SpecialWatchGroup::ExtractWatchGroup($this->user) ;
+		if(count($wanted) > 0) {
+			$add = array_diff( $wanted, $current );
+			$remove = array_diff( $current, $wanted );
+			if(count($add) >0){
+				$this->addGroups( $add );
+			}
+			if(count($remove) > 0){
+				$this->removeGroups( $remove );	
+			}
+			$this->removeGroups( $remove );
+			$this->user->invalidateCache();
+
+		} else {
+			$this->clearWatchGroups();
+			$this->getUser()->invalidateCache();
 		}
-		$form 	.= Xml::submitButton('Submit' ) ;
-		$form 	.= Xml::closeElement( 'form' ) ;
-		$this->output->addHTML($form) ;
+		
+		$this->output->addHTML("Groups have been added and removed as you wished") ;
+				
 	}
+	
+	
+	public function addGroups($list){
+		foreach ($list as $group) {
+			SpecialWatchGroup::addNewGroup( $this->user ,$group) ;
+		}
+	}
+	
+
+	public function removeGroups($list){
+		foreach ($list as $group) {
+			SpecialWatchGroup::removeGroup($this->user, $group) ;
+		}
+	}
+	
+	
+	private function clearWatchGroups(){
+		$dbw = wfGetDB( DB_MASTER );
+		$dbw->delete(
+			'watchgroups',
+			array( 'wp_user' => $this->getUser()->getId() ),
+			__METHOD__
+		);
+	}	
 }
