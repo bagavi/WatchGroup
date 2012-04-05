@@ -51,3 +51,20 @@ $wgHooks['LoadExtensionSchemaUpdates'][] 			= 'WatchGroupHooks::onSchemaUpdate';
 //Actions
 $wgActions['watchgroup'] = 'WatchGroupAction';
 $wgActions['unwatchgroup'] = 'UnWatchGroupAction';
+
+//Resource Loader Modules
+$moduleTemplate = array(
+	'localBasePath' => $dir.'resources',
+	'remoteExtPath' => 'WatchGroup/resources'
+);
+$wgResourceModules['watchgroup.table'] = $moduleTemplate + array(
+	'styles' => array(
+		'watchgroup.table.css',
+	)
+);
+
+$wgResourceModules += array(
+	'watchgroup.table' => $moduleTemplate + array(
+		'styles' => 'watchgroup.table.css'
+	)
+);

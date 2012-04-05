@@ -64,7 +64,7 @@ class SpecialWatchGroup extends SpecialPage {
 		}
 		$this->displayGroupNames($list) ;
 		$this->addGroupForm();		
-
+		$this->addTable() ;
 	}
 	
 public static function addNewGroup($user ,$newGroup , $visibilty = 0 , $editable = 0 ){
@@ -140,11 +140,14 @@ public static function addNewGroup($user ,$newGroup , $visibilty = 0 , $editable
 	
 	
 	public function displayGroupNames($list){
+
+		
 		$this->output->addHTML("<ul>") ;
-		foreach ($list as $groupnames){
+		foreach ($list as $groupname){
+			$noPages = self::countPages($this->user, $groupname) ;
 			$tools = "<li>".Linker::linkKnown(
-				SpecialPage::getTitleFor( 'WatchParticularGroup', $groupnames ),
-			$groupnames
+				SpecialPage::getTitleFor( 'WatchParticularGroup', $groupname ),
+			$groupname.'('.$noPages.')'
 			).'</li>';
 
 			$this->output->addhtml(Html::rawElement( 'div',
@@ -152,8 +155,9 @@ public static function addNewGroup($user ,$newGroup , $visibilty = 0 , $editable
 					);
 		}
 		$this->output->addHTML("</ul>") ;
+		
+		
 	}
-	
 	
 	public static function ExtractWatchGroup($user){
 			
@@ -178,5 +182,76 @@ public static function addNewGroup($user ,$newGroup , $visibilty = 0 , $editable
 		$subtitle = Linker::linkKnown(
 				SpecialPage::getTitleFor( "EditWatchGroup" ),"EditWatchGroup"  	);
 		$this->output->addSubtitle($subtitle) ;
+	}
+	
+	public static function countPages($user ,$groupname) {
+		$dbr = wfGetDB( DB_SLAVE, 'watchpages' );
+
+		# Fetch the raw count
+		$res = $dbr->select( 'watchpages', 'COUNT(*) AS count',
+			array( 
+				'wp_user' => $user->getId(),
+				'wp_groupname' => $groupname, 
+			)
+			, __METHOD__ );
+			
+		$row = $dbr->fetchObject( $res );
+		$count = $row->count;
+		return floor( $count / 2 );
+	}
+	
+	
+	public function addTable(){
+		$table = '<div class="mw-watchgroup-table"
+	style="
+	border-size :1px ;
+	">
+	<table class="mw-watchgroup-table">
+		<tr>
+			<td>
+			Rowwwwwwwwww 1 Column1
+			</td>
+			<td>
+			Row 1 Column2
+			</td>
+			<td>
+			Row 1 Column3
+			</td>
+			<td>
+			Row 1 Column4
+			</td>
+		</tr>
+		<tr>
+			<td>
+			Row 2 Column1
+			</td>
+			<td>
+			Row 2 Column2
+			</td>
+			<td>
+			Row 2 Column3
+			</td>
+			<td>
+			Row 2 Column4
+			</td>
+		</tr>
+		<tr>
+			<td>
+			Row 3 Column1
+			</td>
+			<td>
+			Row 3 Column2
+			</td>
+			<td>
+			Row 3 Column3
+			</td>
+			<td>
+			Row 3 Column4
+			</td>
+		</tr>	
+	</table>
+</div>
+' ;
+	$this->output->addHTML($table) ;	
 	}
 }

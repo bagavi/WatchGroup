@@ -161,10 +161,6 @@ class SpecialWatchParticulargroup extends UnlistedSpecialPage{
 		return $list;
 	}
 	
-	public function countPages($groupId){
-		//Count the number of pages in the given <groupId>
-		return $size;
-	}
 
 	/**
 	Other basic functions

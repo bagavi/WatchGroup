@@ -2,6 +2,7 @@
 /**
  *	@author Vivek Kumar Bagaria <vivekee047@gmail.com>
  * 
+ * Yet To complete the Generator part
  */
 
 /** 
@@ -137,7 +138,13 @@ class ApiQueryWatchGroup extends ApiQueryGeneratorBase {
 	public function getDescription() {
 		return 'Get WatchGroups of the user';
 	}
-
+	
+	public function getExamples() {
+		return array(
+			'api.php?action=query&list=watchgroup',
+			'api.php?action=query&list=watchgroup&prop=skippublicview'
+		);
+	}
 	public function getVersion() {
 		return __CLASS__ ;
 	}
