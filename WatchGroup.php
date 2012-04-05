@@ -19,7 +19,7 @@ $wgExtensionCredits['other'][] = array(
 	'author' => array(
 		'[http://www.mediawiki.org/wiki/User:Bagariavivek Vivek Kumar Bagaria]',
 	),
-	'url' => '',
+	"url" => "http://www.mediawiki.org/wiki/Extension:WatchGroup",
 	'descriptionmsg' => 'watchgroup-desc'
 );
 

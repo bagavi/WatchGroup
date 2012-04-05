@@ -42,8 +42,6 @@ class ApiQueryWatchGroup extends ApiQueryGeneratorBase {
 			$result->addValue( $this->getModuleName() , null , $groups );
 		}
 		$this->getResult()->setIndexedTagName_internal( $this->getModuleName(), '' );
-		// $result->addValue("path", "name", "value") ;
-
 		return ;
 
 	}
@@ -54,31 +52,31 @@ class ApiQueryWatchGroup extends ApiQueryGeneratorBase {
 		$prop = array_flip( (array)$this->params['prop'] );
 		$this->selectNamedDB( 'watchgroups', DB_SLAVE, 'watchgroups' );
 		$this->addTables( 'watchgroups' ) ;
-		$this->addWhereFld( 'wg_user', $this->owner->getId() );
-		$this->addFields( array( 'wg_groupname', 'wg_visible_group' , 'wg_public_editable' ) );
+		$this->addWhereFld( 'wtg_user', $this->owner->getId() );
+		$this->addFields( array( 'wtg_groupname', 'wtg_visible_group' , 'wtg_public_editable' ) );
 
 		// Adding visible and editable params
 		if ( isset( $prop['onlypublicview'] ) ) {
-			$this->addWhereIf( 	'wg_visible_group', 1 );
+			$this->addWhereIf( 	'wtg_visible_group', 1 );
 		}
 		elseif ( isset( $prop['skippublicview'] ) ) {
-			$this->addWhereIf( 	'wg_visible_group', 0 );
+			$this->addWhereIf( 	'wtg_visible_group', 0 );
 		}
 
 
 		if ( isset( $prop['onlypubliceditable'] ) ) {
-			$this->addWhereIf( 'wg_public_editable', 1 );
+			$this->addWhereIf( 'wtg_public_editable', 1 );
 		}
 
 		elseif ( isset( $prop['skippubliceditable'] ) ) {
-			$this->addWhereIf( 	'wg_public_editable', 0 );
+			$this->addWhereIf( 	'wtg_public_editable', 0 );
 		}
 		$res = $this->select( __METHOD__ );
 
 		foreach ( $res as $row ) {
-			$test['Group Name']		= 	$row->wg_groupname ;
-			$test['Visible']		= 	$row->wg_visible_group ;
-			$test['Editable']		= 	$row->wg_public_editable ;
+			$test['Group Name']		= 	$row->wtg_groupname ;
+			$test['Visible']		= 	$row->wtg_visible_group ;
+			$test['Editable']		= 	$row->wtg_public_editable ;
 			$list[] = $test ;
 		}
 

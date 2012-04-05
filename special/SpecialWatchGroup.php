@@ -25,20 +25,15 @@ class SpecialWatchGroup extends SpecialPage {
 	}
 
 	public function execute( $mode ) {
-		/**
-		 * 	Check if user is anonymous?
-		 *  If User is Anon return with a msg displaying to login
-		 */
 		$this->user 	= $this->getUser() ;
 		$this->request = $this->getRequest() ;
 		$this->output = $this->getOutput() ;
+
 		if ( $this->user->isAnon() ) {
 			self::userIsAnon() ;
 			return ;
 		}
-		/*
-		 * Adding headers
-		 */
+		
 		$this->setHeaders();
 		$this->outputHeader();
 		$this->addEditSubtitle();
@@ -67,30 +62,30 @@ class SpecialWatchGroup extends SpecialPage {
 		$this->addTable() ;
 	}
 
-public static function addNewGroup( $user , $newGroup , $visibilty = 0 , $editable = 0 ) {
+	
+	public static function addNewGroup( $user , $newGroup , $visibilty = 0 , $editable = 0 ) {
 		$dbw = wfGetDB( DB_MASTER );
 		$rows = array(
-					'wg_user' => $user->getId(),
-					'wg_groupname' => $newGroup ,
-					'wg_visible_group' => $visibilty,
-					'wg_public_editable' => $editable,
+					'wtg_user' => $user->getId(),
+					'wtg_groupname' => $newGroup ,
+					'wtg_visible_group' => $visibilty,
+					'wtg_public_editable' => $editable,
 				);
 		$dbw->insert( 'watchgroups', $rows, __METHOD__, 'IGNORE' );
-
 		if ( $dbw->affectedRows() ) {
 			return true ;
 		}
 		else {
 			return false ;
 		}
-
 	}
 
+	
 	public static function removeGroup( $user , $Group ) {
 		$dbw = wfGetDB( DB_MASTER );
 		$rows = array(
-					'wg_user'		=> $user->getId(),
-					'wg_groupname'	=> $Group ,
+					'wtg_user'		=> $user->getId(),
+					'wtg_groupname'	=> $Group ,
 				);
 		$dbw->delete( 'watchgroups', $rows, __METHOD__, 'IGNORE' );
 
@@ -109,6 +104,7 @@ public static function addNewGroup( $user , $newGroup , $visibilty = 0 , $editab
 
 	}
 
+	//To change the creation of the form ,using HTML form
 	public function addGroupForm() {
 		$this->addnewline() ;
 		$newline = '<br>' ;
@@ -126,6 +122,7 @@ public static function addNewGroup( $user , $newGroup , $visibilty = 0 , $editab
 		$this->output->addHTML( $form ) ;
 	}
 
+	
 	public static function userIsAnon() {
 		$this->getOutput()->setPageTitle( $this->msg( 'watchgroup-nologin' ) );
 			$llink = Linker::linkKnown(
@@ -155,10 +152,9 @@ public static function addNewGroup( $user , $newGroup , $visibilty = 0 , $editab
 					);
 		}
 		$this->output->addHTML( "</ul>" ) ;
-
-
 	}
 
+	
 	public static function ExtractWatchGroup( $user ) {
 
 		$list = array();
@@ -167,23 +163,25 @@ public static function addNewGroup( $user , $newGroup , $visibilty = 0 , $editab
 				'watchgroups',
 				'*',
 				array(
-					'wg_user' => $user->getId(),
+					'wtg_user' => $user->getId(),
 				),
 				__METHOD__
 			);
 		foreach ( $res as $row ) {
 			// Yet To check the validity of the groupname
-			$list[] = $row->wg_groupname ;
+			$list[] = $row->wtg_groupname ;
 		}
 		return $list;
 	}
 
+	
 	public function addEditSubtitle() {
 		$subtitle = Linker::linkKnown(
 				SpecialPage::getTitleFor( "EditWatchGroup" ), "EditWatchGroup"  	);
 		$this->output->addSubtitle( $subtitle ) ;
 	}
 
+	
 	public static function countPages( $user , $groupname ) {
 		$dbr = wfGetDB( DB_SLAVE, 'watchpages' );
 
@@ -202,56 +200,5 @@ public static function addNewGroup( $user , $newGroup , $visibilty = 0 , $editab
 
 
 	public function addTable() {
-		$table = '<div class="mw-watchgroup-table"
-	style="
-	border-size :1px ;
-	">
-	<table class="mw-watchgroup-table">
-		<tr>
-			<td>
-			Rowwwwwwwwww 1 Column1
-			</td>
-			<td>
-			Row 1 Column2
-			</td>
-			<td>
-			Row 1 Column3
-			</td>
-			<td>
-			Row 1 Column4
-			</td>
-		</tr>
-		<tr>
-			<td>
-			Row 2 Column1
-			</td>
-			<td>
-			Row 2 Column2
-			</td>
-			<td>
-			Row 2 Column3
-			</td>
-			<td>
-			Row 2 Column4
-			</td>
-		</tr>
-		<tr>
-			<td>
-			Row 3 Column1
-			</td>
-			<td>
-			Row 3 Column2
-			</td>
-			<td>
-			Row 3 Column3
-			</td>
-			<td>
-			Row 3 Column4
-			</td>
-		</tr>
-	</table>
-</div>
-' ;
-	$this->output->addHTML( $table ) ;
 	}
 }

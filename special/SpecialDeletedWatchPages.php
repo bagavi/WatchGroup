@@ -1,4 +1,3 @@
-
 <?php
 /**
  * @author vivekkumarbagaria - Potter  <vivekee047@gmail.com>
@@ -11,9 +10,9 @@
  * 		-------------------------------------------------
  * 		|	wg_user		|	wg_title	|	wg_group	|
  * 		-------------------------------------------------
- * 		|				|				|				|
- * 		|				|				|				|
- * 		|				|				|				|
+ * 		|			|			|			|
+ * 		|			|			|			|
+ * 		|			|			|			|
  * 		-------------------------------------------------
  * 		wg_user 	= 	User_Id
  * 		wg_title	=	title of the page
@@ -32,59 +31,52 @@
 	}
 
 	public function execute() {
-	 		/**
-	 		 * 	Check if user is anonymous?
-	 		 *  If User is Anon return with a msg displaying to login
-	 		 */
-			$this->setHeaders();
-			$this->outputHeader();
-			// Add feed links to the ATOM. This will give the list of pages which are deleted by the user
-			// from his watchgroup
-			$deletedpages = extractPages() ;
-
-			/*
-			 * Display the information in $deletedpages
-			 */
-
-			/*
-		 * Add a form with a submit button and add it to the outputpage
-		 */
-	}
+ 		/**
+ 		 * 	Check if user is anonymous?
+ 		 *  If User is Anon return with a msg displaying to login
+ 		 */
+		$this->setHeaders();
+		$this->outputHeader();
+		// Add feed links to the ATOM. This will give the list of pages which are deleted by the user
+		// from his watchgroup
+		$deletedpages = extractDeletedPages() ;
 
 		/*
-		*	This function will be executed when the submit button of the form is clicked
-		*/
-	public function addBackPages() {
-
-	/*
-	 * Check the pages which have been checked in the form.
-	 * Remove these pages from the watchgroup_deleted table
-	 * Add those pages to the watchgroup table
-	 */
-	// Display the success message
+		 * Display the information in $deletedpages
+		 */
 
 	}
 
-	public function extractPages() {
+	/*
+	*	This function will be executed when the submit button of the form is clicked
+	*/
+	public function addBackPages() {	
+		/*
+		 * Check the pages which have been checked in the form.
+		 * Remove these pages from the watchgroup_deleted table
+		 * Add those pages to the watchgroup table
+		 */
+		
+	}
 
-	/**
-	 * Database query
-	 */
-	$res = $dbr->select(
-			'watchgroup_deleted',
-			'*',
-			array(
-				'wl_user' => $this->getUser()->getId(),
-			),
-			__METHOD__
-		);
-	$title = array() ;
-
+	public function extractDeletedPages() {
+		/**
+		 * Database query
+		 */
+		$res = $dbr->select(
+				'watchgroup_deleted',
+				'*',
+				array(
+					'wl_user' => $this->getUser()->getId(),
+				),
+				__METHOD__
+			);
+		$title = array() ;
 		/**
 		 * Loop through res , check which of the pages are valid(some pages may have been deleted)
 		 * Add all the titles in the array $titles
 		 *
 		 */
-			return $title ;
+		return $title ;
 	}
-   }
+}

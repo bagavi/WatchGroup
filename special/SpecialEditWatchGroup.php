@@ -34,7 +34,7 @@ class SpecialEditWatchGroup extends SpecialPage {
 	}
 
 
-	// This function is taken from SpecialEditWatchList
+	// This function is borrowed from SpecialEditWatchList
 	public function CreateEditForm( $list ) {
 		$titles = implode( $list, "\n" );
 		$fields = array(
@@ -71,7 +71,6 @@ class SpecialEditWatchGroup extends SpecialPage {
 		}
 
 		$this->output->addHTML( "Groups have been added and removed as you wished" ) ;
-
 	}
 
 
@@ -98,6 +97,7 @@ class SpecialEditWatchGroup extends SpecialPage {
 		);
 	}
 
+	
 	public function addViewSubtitle() {
 		$subtitle = Linker::linkKnown(
 				SpecialPage::getTitleFor( "WatchGroup" ), "ViewWatchGroup"  	);

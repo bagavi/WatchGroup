@@ -5,7 +5,7 @@
  * 		Database model
  * 		TABLE : watchpages
  * 		-------------------------------------------------------------------------------------------------------------
- * 		|	wg_user		|	wg_title	|	wg_group	|	wg_namespace	|	wg_notifytimestamp	|	wg_hits		|
+ * 		|	wtg_user		|	wtg_title	|	wtg_group	|	wtg_namespace	|	wtg_notifytimestamp	|	wtg_hits		|
  * 		-------------------------------------------------------------------------------------------------------------
  * 		|				|				|				|					|						|				|
  * 		|				|				|				|					|						|				|
@@ -13,13 +13,13 @@
  * 		|				|				|				|					|						|				|
  * 		|				|				|				|					|						|				|
  * 		-------------------------------------------------------------------------------------------------------------
- * 		wg_user 			= 	User_Id
- * 		wg_title			=	title of the page
- * 		wg_group			=	Watch group id of the user
- * 		wg_namespce			= 	NameSpace of the given title
- * 		wg_notifytimestamp	= 	Notification TimeStamp
+ * 		wtg_user 			= 	User_Id
+ * 		wtg_title			=	title of the page
+ * 		wtg_group			=	Watch group id of the user
+ * 		wtg_namespce			= 	NameSpace of the given title
+ * 		wtg_notifytimestamp	= 	Notification TimeStamp
  *
- * 	(may be)wg_hits			= 	Number of time the user goes on this page, this will help us to know
+ * 	(may be)wtg_hits			= 	Number of time the user goes on this page, this will help us to know
  * 								which oages are more important.
  *
  * Function:
@@ -70,23 +70,7 @@ class SpecialWatchParticulargroup extends UnlistedSpecialPage {
 		$this->displayPages( $watchPages ) ;
 
 		// To add feed links to the ATOM. This will give the list of pages of the particular group.
-
-
-
-		/*
-		 * Check the mode(view , rawEdit , checkboxEdit), redirect to
-		 * Special:EditWatchGroup/<groupname> if the user wants to edit his <groupname>
-		 */
-
-		/*
-		* Check the query values from the link eg
-
-		a) Hide Bot , Hide Recent-Edit , Hide Reviewed-Edit etc.
-		b) TimeStamp.
-		c) NameSpace of the pages.
-		*/
-
-
+		//To add conditions on the type of page. For eg, bot-edited, minor edit.
 	}
 
 	public function displayPages( $watchPages ) {
@@ -129,13 +113,13 @@ class SpecialWatchParticulargroup extends UnlistedSpecialPage {
 				'watchgroups',
 				'*',
 				array(
-					'wg_user' 		=>	$this->user->getId(),
-					'wg_groupname'	=>	$groupname,
+					'wtg_user' 		=>	$this->user->getId(),
+					'wtg_groupname'	=>	$groupname,
 				),
 				__METHOD__
 			);
 		foreach ( $res as $group ) {
-			return $group->wg_groupname ;
+			return $group->wtg_groupname ;
 		}
 
 		return null ;
@@ -149,21 +133,21 @@ class SpecialWatchParticulargroup extends UnlistedSpecialPage {
 			'watchpages' ,
 			'*' ,
 			array(
-				'wg_user' => $this->getUser()->getId() ,
-				'wg_groupname' => $group
+				'wtg_user' => $this->getUser()->getId() ,
+				'wtg_groupname' => $group
 			) ,
 			__METHOD__
 		) ;
 		foreach ( $res as $row ) {
-			$list[] = $row->wg_title ;
-		}
 		// Add the valid pages from $res to list
+			$list[] = $row->wtg_title ;
+		}
+
 		return $list;
 	}
 
-
 	/**
-	Other basic functions
+	Other basic functions to be defined
 		a)Check the validity of the title
 		b)Get the time, when this article last edited.
 	*/
