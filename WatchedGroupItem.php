@@ -1,10 +1,10 @@
 <?php
 /**
- * Assumption - If the user has watched an title from any group, it is considered to be watched 
+ * Assumption - If the user has watched an title from any group, it is considered to be watched
  */
 
 class WatchedGroupItem extends WatchedItem {
-	
+
 	var $groupname;
 	/**
 	 * Create a WatchedItem object with the given user and title
@@ -12,20 +12,20 @@ class WatchedGroupItem extends WatchedItem {
 	 * @param $title Title: the title we're going to (un)watch
 	 * @return WatchedItem object
 	 */
-	
-	public static function fromUserTitleGroupname( $user, $title ,$groupname) {
+
+	public static function fromUserTitleGroupname( $user, $title , $groupname ) {
 		$wg = new WatchedGroupItem;
-		
+
 		$wg->mUser = $user;
 		$wg->mTitle = $title;
 		$wg->id = $user->getId();
 		$wg->ns = $title->getNamespace();
 		$wg->ti = $title->getDBkey();
-		$wg->groupname = $groupname ;		
+		$wg->groupname = $groupname ;
 		return $wg;
 	}
-	
-	
+
+
 	/**
 	 * Return an array of conditions to select or update the appropriate database
 	 * row.
@@ -50,10 +50,10 @@ class WatchedGroupItem extends WatchedItem {
 		  array(
 			'wp_user' => $this->id,
 			'wp_title' => $this->ti,
-			'wp_namespace' => MWNamespace::getSubject($this->ns),
+			'wp_namespace' => MWNamespace::getSubject( $this->ns ),
 			'wp_groupname'	=> $this->groupname ,
 			'wp_notifytimestamp' => null
-		  
+
 		  ), __METHOD__, 'IGNORE' );
 
 		// Every single watched page needs now to be listed in watchlist;
@@ -62,7 +62,7 @@ class WatchedGroupItem extends WatchedItem {
 		  array(
 			'wp_user' 		=> $this->id,
 			'wp_title' 		=> $this->ti,
-			'wp_namespace' 	=> MWNamespace::getTalk($this->ns),
+			'wp_namespace' 	=> MWNamespace::getTalk( $this->ns ),
 			'wp_groupname'	=> $this->groupname ,
 			'wp_notifytimestamp' => null
 		  ), __METHOD__, 'IGNORE' );
@@ -78,14 +78,14 @@ class WatchedGroupItem extends WatchedItem {
 	 * @return bool
 	 */
 	public function removeWatchGroup() {
-		wfProfileIn( __METHOD__ ); 
+		wfProfileIn( __METHOD__ );
 		$success = false;
 		$dbw = wfGetDB( DB_MASTER );
 		$dbw->delete( 'watchpages',
 			array(
 				'wp_user' 		=> $this->id,
 				'wp_title' 		=> $this->ti,
-				'wp_namespace' 	=> MWNamespace::getSubject($this->ns),
+				'wp_namespace' 	=> MWNamespace::getSubject( $this->ns ),
 				'wp_groupname' 	=> $this->groupname,
 			), __METHOD__
 		);
@@ -97,7 +97,7 @@ class WatchedGroupItem extends WatchedItem {
 			array(
 				'wp_user' 		=> $this->id,
 				'wp_title' 		=> $this->ti,
-				'wp_namespace' 	=> MWNamespace::getTalk($this->ns),
+				'wp_namespace' 	=> MWNamespace::getTalk( $this->ns ),
 				'wp_groupname' 	=> $this->groupname
 			), __METHOD__
 		);
@@ -106,7 +106,7 @@ class WatchedGroupItem extends WatchedItem {
 			$success = true;
 		}
 		$this->watched = false;
-		wfProfileOut( __METHOD__ );		
+		wfProfileOut( __METHOD__ );
 		return $success;
 	}
 }

@@ -1,0 +1,30 @@
+
+table.mw-watchgroup-table {
+	border-spacing: 0;
+	border: 1px solid #000;
+	border-collapse: collapse;
+}
+table.mw-watchgroup-table th, table.mw-watchgroup-table td {
+	text-align: left;
+	padding: 2px 4px 2px 4px;
+	border-style: solid;
+	border-color: #444;
+}
+table.mw-watchgroup-table th {
+	border-width: 0px 1px 1px 1px;
+	background-color: #A0CFEC
+}
+table.mw-watchgroup-table td {
+	border-width: 0px 1px 0px 1px;
+}
+table.mw-watchgroup-table tr.odd td {
+	background-color: #43C6DB;
+}
+table.mw-watchgroup-table tr.even td {
+	background-color: 	 #00FFFF;
+}
+table.mw-watchgroup-table tr.sortbottom td {
+	border-top: 1px solid #444;
+	background-color: 	 #3B9C9C
+	font-weight: bold;
+}

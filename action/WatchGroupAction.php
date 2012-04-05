@@ -1,21 +1,21 @@
 <?php
-/** 
- * 
+/**
+ *
  * @author vivekkumarbagaria
  *
  */
-class WatchGroupAction extends WatchAction{
-	
-	protected $user, $title, $groupname ,$request ;
+class WatchGroupAction extends WatchAction {
+
+	protected $user, $title, $groupname , $request ;
 		public function getName() {
 		return 'watchgroup';
 	}
-	
-	
+
+
 	protected function getDescription() {
 		return wfMsgHtml( 'addtowatchgroup' );
 	}
-	
+
 
 	/**
 	 * This can be either formed or formless depending on the session token given
@@ -24,35 +24,35 @@ class WatchGroupAction extends WatchAction{
 		$this->user = $this->getUser();
 		$this->checkCanExecute( $this->user );
 		$this->request = $this->getRequest() ;
-		$this->groupname = $this->request->getText("groupname") ;
+		$this->groupname = $this->request->getText( "groupname" ) ;
 		$this->title = $this->getTitle() ;
 		$this->setHeaders();
 		// Yet to take care of token and related stuff
 		$this->onSubmit( array() );
 		$this->onSuccess();
 }
-	
+
 	public function onSubmit( $data ) {
-		
+
 		wfProfileIn( __METHOD__ );
-		self::doWatchGroup( $this->title, $this->user , $this->groupname);
+		self::doWatchGroup( $this->title, $this->user , $this->groupname );
 		wfProfileOut( __METHOD__ );
 		return true;
 	}
-	
+
 	public static function doWatchGroup( Title $title, User $user , $GroupName ) {
-		$watchgroupitem = WatchedGroupItem::fromUserTitleGroupname($user, $title, $GroupName) ;
-		//$page = WikiPage::factory( $title );
+		$watchgroupitem = WatchedGroupItem::fromUserTitleGroupname( $user, $title, $GroupName ) ;
+		// $page = WikiPage::factory( $title );
 		$watchgroupitem->addWatchGroup() ;
 		return true;
 	}
 
 	public static function doUnwatchGroup( Title $title, User $user , $GroupName ) {
-		$watchgroupitem = WatchedGroupItem::fromUserTitleGroupname($user, $title, $GroupName) ;
+		$watchgroupitem = WatchedGroupItem::fromUserTitleGroupname( $user, $title, $GroupName ) ;
 		$watchgroupitem->removeWatchGroup();
 		return true;
 	}
-	
+
 
 	protected function alterForm( HTMLForm $form ) {
 		$form->setSubmitText( wfMsg( 'confirm-watch-button' ) );
@@ -63,7 +63,7 @@ class WatchGroupAction extends WatchAction{
 	}
 
 	public function onSuccess() {
-		$this->getOutput()->addHTML( 'This page has been added to the given groupname ');
+		$this->getOutput()->addHTML( 'This page has been added to the given groupname ' );
 	}
 }
 
@@ -80,7 +80,7 @@ class UnwatchGroupAction extends WatchGroupAction {
 
 	public function onSubmit( $data ) {
 		wfProfileIn( __METHOD__ );
-		self::doUnwatchgroup( $this->title, $this->user ,$this->groupname);
+		self::doUnwatchgroup( $this->title, $this->user , $this->groupname );
 		wfProfileOut( __METHOD__ );
 		return true;
 	}
@@ -94,6 +94,6 @@ class UnwatchGroupAction extends WatchGroupAction {
 	}
 
 	public function onSuccess() {
-		$this->getOutput()->addWikiMsg( 'removed this page from the watchgroupname ') ;
+		$this->getOutput()->addWikiMsg( 'removed this page from the watchgroupname ' ) ;
 	}
 }

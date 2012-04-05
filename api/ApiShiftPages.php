@@ -1,10 +1,10 @@
 <?php
 /**
  *	@author Vivek Kumar Bagaria <vivekee047@gmail.com>
- * 
+ *
  */
 
-/** 
+/**
  *
  * @ingroup API
  */
@@ -19,7 +19,7 @@ class ApiWatch extends ApiBase {
 		if ( !$user->isLoggedIn() ) {
 			$this->dieUsage( 'You must be logged-in to have a watchlist', 'notloggedin' );
 		}
-		
+
 		$params = $this->extractRequestParams();
 
 	}

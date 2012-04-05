@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Vivek Kumar Bagaria <vivekee047@gmail.com>
- * 
+ *
  */
 
 
@@ -23,38 +23,38 @@ $wgExtensionCredits['other'][] = array(
 	'descriptionmsg' => 'watchgroup-desc'
 );
 
-$dir = dirname( __FILE__ ).'/' ;
-//i18n
-$wgExtensionMessagesFiles['WatchGroup'] = $dir.'/WatchGroup.i18n.php' ;
-//AutoLoadFiles
+$dir = dirname( __FILE__ ) . '/' ;
+// i18n
+$wgExtensionMessagesFiles['WatchGroup'] = $dir . '/WatchGroup.i18n.php' ;
+// AutoLoadFiles
 
-$wgAutoloadClasses['WatchGroupHooks'] 				= 	$dir.'WatchGroup.hooks.php' ;
-$wgAutoloadClasses['ApiQueryWatchGroup'] 			= 	$dir.'api/ApiQueryWatchGroup.php' ;
-$wgAutoloadClasses['SpecialWatchGroup']				=	$dir.'special/SpecialWatchGroup.php' ;
-$wgAutoloadClasses['SpecialWatchParticularGroup']		=	$dir.'special/SpecialWatchParticularGroup.php' ;
+$wgAutoloadClasses['WatchGroupHooks'] 				= 	$dir . 'WatchGroup.hooks.php' ;
+$wgAutoloadClasses['ApiQueryWatchGroup'] 			= 	$dir . 'api/ApiQueryWatchGroup.php' ;
+$wgAutoloadClasses['SpecialWatchGroup']				=	$dir . 'special/SpecialWatchGroup.php' ;
+$wgAutoloadClasses['SpecialWatchParticularGroup']		=	$dir . 'special/SpecialWatchParticularGroup.php' ;
 
-$wgAutoloadClasses['SpecialEditWatchGroup']			=	$dir.'special/SpecialEditWatchGroup.php' ;
-$wgAutoloadClasses['WatchedGroupItem']				=	$dir.'WatchedGroupItem.php' ;
-$wgAutoloadClasses['WatchGroupAction']				=	$dir.'action/WatchGroupAction.php' ;
-$wgAutoloadClasses['UnWatchGroupAction']				=	$dir.'action/WatchGroupAction.php' ;
-//APIs
+$wgAutoloadClasses['SpecialEditWatchGroup']			=	$dir . 'special/SpecialEditWatchGroup.php' ;
+$wgAutoloadClasses['WatchedGroupItem']				=	$dir . 'WatchedGroupItem.php' ;
+$wgAutoloadClasses['WatchGroupAction']				=	$dir . 'action/WatchGroupAction.php' ;
+$wgAutoloadClasses['UnWatchGroupAction']				=	$dir . 'action/WatchGroupAction.php' ;
+// APIs
 $wgAPIListModules['watchgroups']					=	'ApiQueryWatchGroup';
 
-//SpecialClasses
+// SpecialClasses
 $wgSpecialPages['WatchGroup']						=	'SpecialWatchGroup' ;
 $wgSpecialPages['WatchParticularGroup']				=	'SpecialWatchParticularGroup' ;
 $wgSpecialPages['EditWatchGroup']					=	'SpecialEditWatchGroup' ;
 
-//Hooks
+// Hooks
 $wgHooks['LoadExtensionSchemaUpdates'][] 			= 'WatchGroupHooks::onSchemaUpdate';
 
-//Actions
+// Actions
 $wgActions['watchgroup'] = 'WatchGroupAction';
 $wgActions['unwatchgroup'] = 'UnWatchGroupAction';
 
-//Resource Loader Modules
+// Resource Loader Modules
 $moduleTemplate = array(
-	'localBasePath' => $dir.'resources',
+	'localBasePath' => $dir . 'resources',
 	'remoteExtPath' => 'WatchGroup/resources'
 );
 $wgResourceModules['watchgroup.table'] = $moduleTemplate + array(
