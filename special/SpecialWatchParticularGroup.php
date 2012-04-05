@@ -1,26 +1,6 @@
 <?php
 /**
- * @author vivekkumarbagaria - Potter  <vivekee047@gmail.com>
- *
- * 		Database model
- * 		TABLE : watchpages
- * 		-------------------------------------------------------------------------------------------------------------
- * 		|	wtg_user		|	wtg_title	|	wtg_group	|	wtg_namespace	|	wtg_notifytimestamp	|	wtg_hits		|
- * 		-------------------------------------------------------------------------------------------------------------
- * 		|				|				|				|					|						|				|
- * 		|				|				|				|					|						|				|
- * 		|				|				|				|					|						|				|
- * 		|				|				|				|					|						|				|
- * 		|				|				|				|					|						|				|
- * 		-------------------------------------------------------------------------------------------------------------
- * 		wtg_user 			= 	User_Id
- * 		wtg_title			=	title of the page
- * 		wtg_group			=	Watch group id of the user
- * 		wtg_namespce			= 	NameSpace of the given title
- * 		wtg_notifytimestamp	= 	Notification TimeStamp
- *
- * 	(may be)wtg_hits			= 	Number of time the user goes on this page, this will help us to know
- * 								which oages are more important.
+ * @author vivekkumarbagaria  <vivekee047@gmail.com>
  *
  * Function:
  * This SpecialPage will display all the pages of a	<groupname>

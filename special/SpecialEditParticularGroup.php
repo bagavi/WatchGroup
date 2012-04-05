@@ -37,9 +37,7 @@
 
 		// Display the success(or error) msg
 		// Display the pages which have been deleted
-
-
-		}
+	}
 
 	/**
 	*	To edit the pages in a raw format
