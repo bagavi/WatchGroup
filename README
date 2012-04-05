@@ -1,4 +1,5 @@
-This is a prototype of the Extension:WatchGroup
+
+This is a prototype of the Extension:WatchGroup. Suggestions are most welcomed
 
 I have created all the basic neccassary classes, but i have coded only few of them
 
@@ -9,21 +10,30 @@ Hooks
 	2)'WatchGroup/WatchGroup.hooks.php' ;
 
 Special
-	3)'WatchGroup/special/SpecialWatchGroup.php' ;
+	3)'WatchGroup/special/SpecialWatchGroups.php' ;
 		Displays all the groups og the user.
 		Allows him to add groups
-	4)'WatchGroup/special/SpecialWatchParticularGroup.php' ;
+	4)'WatchGroup/special/SpecialWatchGroupPage.php' ;
 		Displays all the pages in a particular group
-	5)'WatchGroup/special/SpecialEditWatchGroup.php' ;
+	5)'WatchGroup/special/SpecialEditWatchGroups.php' ;
 		Allows user to remove groups from list of WatchGroups
+	6)'WatchGroup/special/SpecialWatchListToWatchGroup'
+		Creates a group which contains all the pages from users WatchList
 	
 Action
-	6)'WatchGroup/WatchedGroupItem.php' ;
-	7)'WatchGroup/action/WatchGroupAction.php' ;
+	8)'WatchGroup/WatchedGroupItem.php' ;
+	9)'WatchGroup/action/WatchGroupAction.php' ;
 	
 SQL
-	8)'WatchGroup/sql/WatchGroup.sql' ;
+	9)'WatchGroup/sql/WatchGroup.sql' ;
 
+API
+	10)'WatchGroup/api/ApiQueryWatchGroup.php' ;
+		List all the groupnames of the given user
+		
+Others
+	11)WatchGroup/WatchItems.php
+		Class whoch facilitates the addition of pages in groups
 
 
 Working features
@@ -31,10 +41,10 @@ Working features
 1)New groups can be created
 2)Pages can be added to each groups by "action=watchgroup&groupname=<groupname>
 3)Pages can be removed to each groups by "action=unwatchgroup&groupname=<groupname>
+4)Pages can be shifted from watchlist to a particular watchgroup
 
 
-Currently working on API
-	'WatchGroup/api/ApiQueryWatchGroup.php' ;
-	
-I have left out Validation for the prototype.
-For example, duplication of groupnames,pages etc.
+I have to yet to practice MediaWiki Coding Style :-)
+
+To Do Next
+Update i18n.

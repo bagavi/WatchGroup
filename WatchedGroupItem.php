@@ -46,14 +46,40 @@ class WatchedGroupItem extends WatchedItem {
 	}
 
 
+	/*
+	 * Returns true if the given page is there in the given group
+	 */
+	public function checkWatchGroupPage(){
+		
+		$dbw = wfGetDB( DB_SLAVE );
+		$res = $dbw->selectRow( 'watchpages',
+		  array(
+			'wp_user' => $this->id,
+			'wp_title' => $this->ti,
+			'wp_namespace' => MWNamespace::getSubject( $this->ns ),
+			'wp_groupname'	=> $this->groupname ,
+			'wp_notifytimestamp' => null
+
+		  ), __METHOD__, 'IGNORE' );
+		  
+		if(is_null(res)){
+			
+			return True ;
+		}
+		else{
+			echo "Pages exists in this group" ;
+			return False ;
+		}
+	}
+	
 	/**
 	 * Given a title ,groupname and user (assumes the object is setup), add the watch to the
 	 * database.
 	 * @return bool (always true)
 	 */
+	
 	public function addWatchGroupPage() {
 		wfProfileIn( __METHOD__ );
-
 		$dbw = wfGetDB( DB_MASTER );
 		$dbw->insert( 'watchpages',
 		  array(
