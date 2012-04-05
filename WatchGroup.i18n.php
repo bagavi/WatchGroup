@@ -10,7 +10,7 @@ $messages = array();
 
 $messages['en'] = array(
 	// SpecialWatchGroup
-	'watchgroup' => 'WatchGroup',
+	'watchgroups' => 'WatchGroups',
 	'nowatchgroup' => 'You have not created any WatchGroups',
 	'watchgroup-listanontext' => 'Please Login' ,
 	'watchgroup-head' => 'My WatchGroups',
@@ -21,8 +21,12 @@ $messages['en'] = array(
 	'watchgroup-add-form-add-group' => 'Add Group',
 
 	// SpecialEditWatchGroup
-	'editwatchgroup' => 'EditWatchGroup',
+	'editwatchgroups' => 'EditWatchGroups',
 
 	// SpecialWatchParticularGroup
-	'watchparticulargroup' => 'WatchParticularGroup',
+	'watchgrouppages' => 'WatchGroupPages',
+
+	//SpecialWatchListToWatchGroup
+	'watchgroup-watchlist-is-shifted' => 'Watchlist has been shifted to watchgroup - "WatchListWatchGroup',
+	'watchgroup-watchlist-was-shifted'=> 'WatchList has been shifted before to watchgroup - "WatchListWatchGroup'
 ) ;

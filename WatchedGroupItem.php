@@ -46,7 +46,7 @@ class WatchedGroupItem extends WatchedItem {
 	 * database.
 	 * @return bool (always true)
 	 */
-	public function addWatchGroup() {
+	public function addWatchGroupPage() {
 		wfProfileIn( __METHOD__ );
 
 		$dbw = wfGetDB( DB_MASTER );
@@ -81,7 +81,7 @@ class WatchedGroupItem extends WatchedItem {
 	 * Same as addWatch, only the opposite.
 	 * @return bool
 	 */
-	public function removeWatchGroup() {
+	public function removeWatchGroupPage() {
 		wfProfileIn( __METHOD__ );
 		$success = false;
 		$dbw = wfGetDB( DB_MASTER );

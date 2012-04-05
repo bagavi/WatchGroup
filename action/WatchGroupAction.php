@@ -43,13 +43,13 @@ class WatchGroupAction extends WatchAction {
 	public static function doWatchGroup( Title $title, User $user , $GroupName ) {
 		$watchgroupitem = WatchedGroupItem::fromUserTitleGroupname( $user, $title, $GroupName ) ;
 		// $page = WikiPage::factory( $title );
-		$watchgroupitem->addWatchGroup() ;
+		$watchgroupitem->addWatchGroupPage() ;
 		return true;
 	}
 
 	public static function doUnwatchGroup( Title $title, User $user , $GroupName ) {
 		$watchgroupitem = WatchedGroupItem::fromUserTitleGroupname( $user, $title, $GroupName ) ;
-		$watchgroupitem->removeWatchGroup();
+		$watchgroupitem->removeWatchGroupPage();
 		return true;
 	}
 

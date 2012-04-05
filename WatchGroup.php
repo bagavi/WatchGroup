@@ -30,21 +30,21 @@ $wgExtensionMessagesFiles['WatchGroup'] = $dir . '/WatchGroup.i18n.php' ;
 
 $wgAutoloadClasses['WatchGroupHooks'] 				= 	$dir . 'WatchGroup.hooks.php' ;
 $wgAutoloadClasses['ApiQueryWatchGroup'] 			= 	$dir . 'api/ApiQueryWatchGroup.php' ;
-$wgAutoloadClasses['SpecialWatchGroup']				=	$dir . 'special/SpecialWatchGroup.php' ;
-$wgAutoloadClasses['SpecialWatchParticularGroup']		=	$dir . 'special/SpecialWatchParticularGroup.php' ;
-
-$wgAutoloadClasses['SpecialEditWatchGroup']			=	$dir . 'special/SpecialEditWatchGroup.php' ;
+$wgAutoloadClasses['SpecialWatchGroups']			=	$dir . 'special/SpecialWatchGroups.php' ;
+$wgAutoloadClasses['SpecialWatchGroupPages']		=	$dir . 'special/SpecialWatchGroupPages.php' ;
+$wgAutoloadClasses['SpecialWatchListToWatchGroup'] =   $dir . 'special/SpecialWatchListToWatchGroup.php' ;
+$wgAutoloadClasses['SpecialEditWatchGroups']		=	$dir . 'special/SpecialEditWatchGroups.php' ;
 $wgAutoloadClasses['WatchedGroupItem']				=	$dir . 'WatchedGroupItem.php' ;
 $wgAutoloadClasses['WatchGroupAction']				=	$dir . 'action/WatchGroupAction.php' ;
-$wgAutoloadClasses['UnWatchGroupAction']				=	$dir . 'action/WatchGroupAction.php' ;
+$wgAutoloadClasses['UnWatchGroupAction']			=	$dir . 'action/WatchGroupAction.php' ;
 // APIs
 $wgAPIListModules['watchgroups']					=	'ApiQueryWatchGroup';
 
 // SpecialClasses
-$wgSpecialPages['WatchGroup']						=	'SpecialWatchGroup' ;
-$wgSpecialPages['WatchParticularGroup']				=	'SpecialWatchParticularGroup' ;
-$wgSpecialPages['EditWatchGroup']					=	'SpecialEditWatchGroup' ;
-
+$wgSpecialPages['WatchGroups']						=	'SpecialWatchGroups' ;
+$wgSpecialPages['WatchGroupPages']					=	'SpecialWatchGroupPages' ;
+$wgSpecialPages['EditWatchGroups']					=	'SpecialEditWatchGroups' ;
+$wgSpecialPages['WatchListToWatchGroup']			=	'SpecialWatchListToWatchGroup' ;
 // Hooks
 $wgHooks['LoadExtensionSchemaUpdates'][] 			= 'WatchGroupHooks::onSchemaUpdate';
 

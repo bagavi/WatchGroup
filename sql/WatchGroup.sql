@@ -21,18 +21,18 @@ CREATE UNIQUE INDEX wp_notifytimestamp	ON watchpages(wp_id) ;
 
 
 CREATE TABLE IF NOT EXISTS watchgroups (
-	wg_id				INT unsigned			NOT NULL auto_increment PRIMARY KEY ,
-	wg_user				INT unsigned			NOT NULL , 			-- 	UserID
-	wg_groupname 		VARCHAR(255)		NOT NULL , 			-- 	Name of the group
-	wg_visible_group		SMALLINT unsigned	NOT NULL default 0 ,	-- 	Boolean - Can be viewed by any user
-	wg_public_editable	SMALLINT unsigned	NOT NULL default 0	-- 	Boolean - Can be edited by any user
+	wtg_id				INT unsigned			NOT NULL auto_increment PRIMARY KEY ,
+	wtg_user				INT unsigned			NOT NULL , 			-- 	UserID
+	wtg_groupname 		VARCHAR(255)		NOT NULL , 			-- 	Name of the group
+	wtg_visible_group		SMALLINT unsigned	NOT NULL default 0 ,	-- 	Boolean - Can be viewed by any user
+	wtg_public_editable	SMALLINT unsigned	NOT NULL default 0	-- 	Boolean - Can be edited by any user
 /*Yet to include more columns for preferences of each watchgroup*/
 ) ;
 
-CREATE UNIQUE INDEX wg_id 	ON 	watchgroups (wg_id) ;
-CREATE INDEX wg_user 		ON 	watchgroups (wg_user) ;
-CREATE INDEX wg_groupname	ON	watchgroups (wg_groupname) ;
-CREATE INDEX wg_visible_group 	ON 	watchgroups (wg_visible_group) ;
-CREATE INDEX wg_public_editable ON 	watchgroups (wg_public_editable) ;
+CREATE UNIQUE INDEX wtg_id 	ON 	watchgroups (wtg_id) ;
+CREATE INDEX wtg_user 		ON 	watchgroups (wtg_user) ;
+CREATE INDEX wtg_groupname	ON	watchgroups (wtg_groupname) ;
+CREATE INDEX wtg_visible_group 	ON 	watchgroups (wtg_visible_group) ;
+CREATE INDEX wtg_public_editable ON 	watchgroups (wtg_public_editable) ;
 
 
