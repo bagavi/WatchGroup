@@ -63,7 +63,6 @@ class SpecialEditWatchGroup extends SpecialPage {
 			if(count($remove) > 0){
 				$this->removeGroups( $remove );	
 			}
-			$this->removeGroups( $remove );
 			$this->user->invalidateCache();
 
 		} else {

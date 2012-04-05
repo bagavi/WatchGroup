@@ -10,69 +10,81 @@
  */
 class ApiQueryWatchGroup extends ApiQueryGeneratorBase {
 
+	protected $owner, $params;
 	public function __construct( $main, $action ) {
 		parent::__construct( $main, $action );
 	}
 	
 	public function execute(){
-		$this->run(null);	
+		$this->run();	
 	}
 	
 	public function executeGenerator($resultPageSet){
 		$this->run($resutlPageSet) ;
 	}
 	
-	public function run($resutlPageSet) {
+	public function run($resutlPageSet = null) {
 		$user = $this->getUser();
+		
 		if ( !$user->isLoggedIn() ) {
 			$this->dieUsage( 'You must be logged-in to have a watchlist', 'notloggedin' );
 		}
 
-		$params = $this->extractRequestParams();
+		$this->params = $this->extractRequestParams();
 		
-		$user = $this->getWatchlistUser($params);
-		
-		$watchGroups = $this->ExtractWatchGroups($user) ;
-		
-		$filteredWatchGroups = $this->FilterWatchGroups($watchGroups, $params) ;
-		
+		//$this->owner = $this->getWatchlistUser($params);
+		$this->owner = $user ;
+		$this->getOutput()->addHTML("HRLL") ;
+		$watchgroups = $this->ExtractFilteredWatchGroups($user) ;
 		$result = $this->getResult() ;
+		foreach ($watchgroups as $groups) {
+			$result->addValue($this->getModuleName() , null ,$groups);
+		}		
+		$this->getResult()->setIndexedTagName_internal( $this->getModuleName(), '' );
+		//$result->addValue("path", "name", "value") ;
 		
-		/*
-		 *Add the $filteredWatchGroups in $result till $params['limit']
-		 *give a continue value
-		 */
-		
+		return ;
 
 	}
 
-	public function ExtractWatchGroups($user){
+	public function ExtractFilteredWatchGroups(){
 		
 		$list = array() ;
-		//Query the database for the users watch groups
-		//Add valid watchgroups in the list
+		$prop = array_flip( (array)$this->params['prop'] );
 		
+		$this->selectNamedDB( 'watchgroups', DB_SLAVE, 'watchgroups' );
+		$this->addTables( 'watchgroups' ) ;
+		$this->addWhereFld( 'wg_user', $this->owner->getId() );
+		$this->addFields( array( 'wg_groupname','wg_visible_group' , 'wg_public_editable' ) );
+		
+		//Adding visible and editable params
+		if(isset($prop['onlypublicgroup'])){
+			$this->addWhereIf( 	'wg_visible_group', 1 );	
+		}
+		elseif(isset($prop['skippublicgroup'])){
+			$this->addWhereIf( 	'wg_visible_group', 0 );	
+		} 
+		
+		
+		if(isset($prop['onlypubliceditable'])){
+			$this->addWhereIf( 'wg_public_editable', 1 );	
+		}
+		 
+		elseif(isset($prop['skippubliceditable'])){
+			$this->addWhereIf( 	'wg_public_editable', 0 );	
+		} 
+		$res = $this->select( __METHOD__ );
+		
+		foreach ($res as $row) {
+			$test['Group Name']		= 	$row->wg_groupname ;
+			$test['Visible']		= 	$row->wg_visible_group ;
+			$test['Editable']		= 	$row->wg_public_editable ;
+			$list[] = $test ;
+		}
+		
+		return $list;
 	}
 	
-	public function FilterWatchGroups($list , $params){
-		$newlist = array();
-		return $newlist;
-	}
-	public function mustBePosted() {
-		return true;
-	}
-
-	public function isWriteMode() {
-		return true;
-	}
-
-	public function needsToken() {
-		return true;
-	}
-
-	public function getTokenSalt() {
-		
-	}
 
 	public function getAllowedParams() {
 		return array(
@@ -95,8 +107,10 @@ class ApiQueryWatchGroup extends ApiQueryGeneratorBase {
 				ApiBase::PARAM_TYPE => array(
 					'changed',
 					'shared',
-					'publicview',
-					'public editable',
+					'onlypublicview',
+					'onlypubliceditable',
+					'skippublicview',
+					'skippubliceditable'
 				)
 			),
 			'time' => array(

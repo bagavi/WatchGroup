@@ -89,11 +89,17 @@ public static function addNewGroup($user ,$newGroup , $visibilty = 0 , $editable
 	public static function removeGroup($user ,$Group ){
 		$dbw = wfGetDB( DB_MASTER );
 		$rows = array(
-					'wg_user' => $user->getId(),
-					'wg_groupname' => $Group , 
+					'wg_user'		=> $user->getId(),
+					'wg_groupname'	=> $Group , 
 				);				
 		$dbw->delete( 'watchgroups',$rows,__METHOD__, 'IGNORE');
 		
+		$rows = array(
+					'wp_user'		=> $user->getId(),
+					'wp_groupname'	=> $Group , 
+				);				
+		$dbw->delete( 'watchpages',$rows,__METHOD__, 'IGNORE');
+
 		if($dbw->affectedRows()){
 			return true ;
 		}
@@ -106,11 +112,7 @@ public static function addNewGroup($user ,$newGroup , $visibilty = 0 , $editable
 	public function addGroupForm(){
 		$this->addnewline() ;
 		$newline = '<br>' ;
-		
-		$this->output->addhtml(Html::rawElement( 'div',
-						array( 'class' => 'mw-watchgroup-addgroup-title' ), wfMsg('watchgroup-add-new') )
-					);
-
+		$this->output->addhtml(Html::rawElement( 'div',	array( 'class' => 'mw-watchgroup-addgroup-title' ), wfMsg('watchgroup-add-new') ));
 		$form	 = Xml::openElement( 'form', array( 'method'	=> 'post',
 													'action'	=> $this->getTitle()->getLocalUrl(),
 													'id'		=> 'mw-watchgroup-submit' )) ;
@@ -151,6 +153,8 @@ public static function addNewGroup($user ,$newGroup , $visibilty = 0 , $editable
 		}
 		$this->output->addHTML("</ul>") ;
 	}
+	
+	
 	public static function ExtractWatchGroup($user){
 			
 		$list = array();
