@@ -27,6 +27,6 @@ $messages['en'] = array(
 	'watchgrouppages' => 'WatchGroupPages',
 
 	//SpecialWatchListToWatchGroup
-	'watchgroup-watchlist-is-shifted' => 'Watchlist has been shifted to watchgroup - "WatchListWatchGroup',
-	'watchgroup-watchlist-was-shifted'=> 'WatchList has been shifted before to watchgroup - "WatchListWatchGroup'
+	'watchgroup-watchlist-is-shifted' => 'Watchlist has been shifted to ',
+	'watchgroup-watchlist-was-shifted'=> 'WatchList has been shifted before to '
 ) ;

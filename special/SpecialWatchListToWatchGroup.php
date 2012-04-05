@@ -16,16 +16,24 @@ class SpecialWatchListToWatchGroup extends SpecialPage {
 		$this->output = $this->getOutput() ;
 			
 		$watchlist = $this->getWatchlist() ;
+		$WatchListGroupPagelink = Linker::linkKnown(
+				SpecialPage::getTitleFor( 'WatchGroupPages', $this->WatchListGroupName ),
+			$this->WatchListGroupName) ;
 		if(SpecialWatchGroups::addNewGroup($this->user, "WatchListGroup")){
 			foreach ($watchlist as $titleText) {
 				$title = Title::newFromText($titleText) ;
 				$watchgroupitem = WatchedGroupItem::fromUserTitleGroupname( $this->user, $title, $this->WatchListGroupName ) ;
 				$watchgroupitem->addWatchGroupPage() ;
 			}
+			
+			
 			$this->output->addHTML(wfMsg('watchgroup-watchlist-is-shifted')) ;
+			$this->output->addHTML($WatchListGroupPagelink) ;
+
 		}
 		else{
 			$this->output->addHTML(wfMsg('watchgroup-watchlist-was-shifted')) ;
+			$this->output->addHTML($WatchListGroupPagelink) ;
 		}
 	}
 	

@@ -5,9 +5,7 @@
 
 /** To Do
  * 1)Edit button next to the groupname(this will redirect the user to edit the Group Preferences)
- * 2)To display  more details of the groups like no of pages etc
- * 3)To add CSS and JS.
- * 4)Eliminate the duplication of groupnames
+ * 2)To add CSS and JS.
  */
 
 class SpecialWatchGroups extends SpecialPage {
