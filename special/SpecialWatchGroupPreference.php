@@ -1,8 +1,9 @@
 <?php
 /**
- *
+ * @licence GNU GPL v3+
  * @author vivekkumarbagaria <vivekee047@gmail.com>
  *
+ * Yet To Code
  * Function : To view/change preference of <groupname>
  *
  * Basic list of preferences

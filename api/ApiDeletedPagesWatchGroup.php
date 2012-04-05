@@ -1,13 +1,15 @@
 <?php
 /**
- *	@author Vivek Kumar Bagaria <vivekee047@gmail.com>
- *
+ * @licence GNU GPL v3+
+ * @author Vivek Kumar Bagaria <vivekee047@gmail.com>
+ * 
+ * Yet To Code.
+ * 
+ * Function :
+ * Returns the pages deleted from users WatchGroups.
  */
 
-/**
- *
- * @ingroup API
- */
+
 class ApiDeletedPagesWatchGroup extends ApiBase {
 
 	public function __construct( $main, $action ) {

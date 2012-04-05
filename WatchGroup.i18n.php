@@ -1,9 +1,10 @@
 <?php
 /**
- * Internationalisation file for extension WatchGroup.
+ * Internationalisation file for extension WatchGroup. 
  *
- * @file
- * @ingroup Extensions
+ * @author vivekkumarbagaria <vivekee047@gmail.com>
+ * 
+ * @licence GNU GPL v3+
  */
 
 $messages = array();

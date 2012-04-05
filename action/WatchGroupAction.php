@@ -1,6 +1,7 @@
 <?php
 /**
- *
+ * Defines action=watchgroups&groupname=<groupname>
+ * @licence GNU GPL v3+
  * @author vivekkumarbagaria
  *
  */

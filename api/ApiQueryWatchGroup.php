@@ -6,7 +6,8 @@
  */
 
 /**
- *	Returns the list of WatchGroups a user
+ * Returns the list of WatchGroups a user
+ * @licence GNU GPL v3+ 
  * @ingroup API
  */
 class ApiQueryWatchGroup extends ApiQueryGeneratorBase {

@@ -1,6 +1,8 @@
 <?php
 /**
+ * @licence GNU GPL v3+
  * @author VivekKumarBagaria <vivekee047@gmail.com>
+ * Displays users WatchGroups.
 */
 
 /** To Do

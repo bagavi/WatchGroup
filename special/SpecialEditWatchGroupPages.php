@@ -1,8 +1,9 @@
 <?php
 /**
+ * Yet To Code
  *
  * @author vivekkumarbagaria <vivekee047@gmail.com>
- *
+ * @licence GNU GPL v3+
  * Function : To Edit the pages of <groupname>
  *
  */

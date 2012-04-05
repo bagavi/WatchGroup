@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Vivek Kumar Bagaria <vivekee047@gmail.com>
- *
+ * @licence GNU GPL v3+
  */
 
 

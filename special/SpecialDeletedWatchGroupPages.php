@@ -1,6 +1,8 @@
 <?php
 /**
- * @author vivekkumarbagaria - Potter  <vivekee047@gmail.com>
+ * Yet To Code
+ * @licence GNU GPL v3+ 
+ * @author vivekkumarbagaria   <vivekee047@gmail.com>
  *
  * We need to keep seperate table for deleted pages because , if we keep the deleted pages
  * in the main watchgroup table, the queries will get costilier as user uses the watchgroup.

@@ -1,6 +1,11 @@
 <?php
 /**
+ * @licence GNU GPL v3+ 
+ *
+ * @author vivekkumarbagaria <vivekee047@gmail.com>
  * Assumption - If the user has watched an title from any group, it is considered to be watched
+ * 
+ * This class is a object for creating watchedgroupitems for a title
  */
 
 class WatchedGroupItem extends WatchedItem {

@@ -1,9 +1,9 @@
 <?php
 /**
- *
+ * @licence GNU GPL v3+
  * @author vivekkumarbagaria <vivekee047@gmail.com>
  *
- * Function : To Edit the groups
+ * Function : To Edit the users WatchGroups
  *
  */
 class SpecialEditWatchGroups extends SpecialPage {

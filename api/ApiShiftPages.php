@@ -5,7 +5,8 @@
  */
 
 /**
- *
+ * Yet To Code
+ * @licence GNU GPL v3+
  * @ingroup API
  */
 class ApiShiftPages extends ApiBase {

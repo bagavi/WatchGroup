@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * @licence GNU GPL v3+ 
+ *
+ * @author vivekkumarbagaria <vivekee047@gmail.com>
+ *
+ * Adds all the pages from the users current WatchList to a WatchGroup
+ */
 class SpecialWatchListToWatchGroup extends SpecialPage {
 	
 	protected $output ;
