@@ -1,6 +1,6 @@
 <?php
 /**
- *	@author Vivek Kumar Bagaria <vivekee047@gmail.com>
+ * @author Vivek Kumar Bagaria <vivekee047@gmail.com>
  *
  * Yet To complete the Generator part
  */
@@ -58,10 +58,10 @@ class ApiQueryWatchGroup extends ApiQueryGeneratorBase {
 
 		// Adding visible and editable params
 		if ( isset( $prop['onlypublicview'] ) ) {
-			$this->addWhereIf( 	'wtg_visible_group', 1 );
+			$this->addWhereIf( 'wtg_visible_group', 1 );
 		}
 		elseif ( isset( $prop['skippublicview'] ) ) {
-			$this->addWhereIf( 	'wtg_visible_group', 0 );
+			$this->addWhereIf( 'wtg_visible_group', 0 );
 		}
 
 
@@ -70,14 +70,14 @@ class ApiQueryWatchGroup extends ApiQueryGeneratorBase {
 		}
 
 		elseif ( isset( $prop['skippubliceditable'] ) ) {
-			$this->addWhereIf( 	'wtg_public_editable', 0 );
+			$this->addWhereIf( 'wtg_public_editable', 0 );
 		}
 		$res = $this->select( __METHOD__ );
 
 		foreach ( $res as $row ) {
 			$test['Group Name']	= 	$row->wtg_groupname ;
-			$test['Visible']		= 	$row->wtg_visible_group ;
-			$test['Editable']		= 	$row->wtg_public_editable ;
+			$test['Visible']	= 	$row->wtg_visible_group ;
+			$test['Editable']	= 	$row->wtg_public_editable ;
 			$list[] = $test ;
 		}
 
