@@ -118,10 +118,10 @@ class WatchedGroupItem extends WatchedItem {
 		$dbw = wfGetDB( DB_MASTER );
 		$dbw->delete( 'watchpages',
 			array(
-				'wp_user' 		=> $this->id,
-				'wp_title' 		=> $this->ti,
-				'wp_namespace' 	=> MWNamespace::getSubject( $this->ns ),
-				'wp_groupname' 	=> $this->groupname,
+			'wp_user' 		=> $this->id,
+			'wp_title' 		=> $this->ti,
+			'wp_namespace' 	=> MWNamespace::getSubject( $this->ns ),
+			'wp_groupname' 	=> $this->groupname,
 			), __METHOD__
 		);
 		if ( $dbw->affectedRows() ) {
@@ -130,10 +130,10 @@ class WatchedGroupItem extends WatchedItem {
 
 		$dbw->delete( 'watchpages',
 			array(
-				'wp_user' 		=> $this->id,
-				'wp_title' 		=> $this->ti,
-				'wp_namespace' 	=> MWNamespace::getTalk( $this->ns ),
-				'wp_groupname' 	=> $this->groupname
+			'wp_user' 		=> $this->id,
+			'wp_title' 		=> $this->ti,
+			'wp_namespace' 	=> MWNamespace::getTalk( $this->ns ),
+			'wp_groupname' 	=> $this->groupname
 			), __METHOD__
 		);
 
