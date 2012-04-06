@@ -1,9 +1,6 @@
-
 This is a prototype of the Extension:WatchGroup. Suggestions are most welcomed
 
-I have created all the basic neccassary classes, but i have coded only few of them
 
-Classes which I have coded
 Main Class
 	1)'WatchGroup/WatchGroup.php' ;
 Hooks
