@@ -4,9 +4,9 @@
 
  
 CREATE TABLE IF NOT EXISTS watchpages(
-	wp_id				INT unsigned			NOT NULL auto_increment PRIMARY KEY ,
-	wp_user				INT unsigned			NOT NULL ,			--	UserID ,
-	wp_title				VARCHAR(255)		NOT NULL ,			--	Title of the page
+	wp_id			INT unsigned			NOT NULL auto_increment PRIMARY KEY ,
+	wp_user			INT unsigned			NOT NULL ,			--	UserID ,
+	wp_title			VARCHAR(255)		NOT NULL ,			--	Title of the page
 	wp_groupname		VARCHAR(255)		NOT NULL ,			--	Name of the group
 	wp_namespace		INT unsigned			NOT NULL ,			--	Namespace number of the page
 	wp_notifytimestamp	VARCHAR(15)							
