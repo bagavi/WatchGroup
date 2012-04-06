@@ -53,15 +53,15 @@ class WatchedGroupItem extends WatchedItem {
 		
 		$dbw = wfGetDB( DB_SLAVE );
 		$res = $dbw->selectRow( 'watchpages',
-		  array(
+			array(
 			'wp_user' => $this->id,
 			'wp_title' => $this->ti,
 			'wp_namespace' => MWNamespace::getSubject( $this->ns ),
 			'wp_groupname'	=> $this->groupname ,
 			'wp_notifytimestamp' => null
 
-		  ), __METHOD__, 'IGNORE' );
-		  
+		), __METHOD__, 'IGNORE' );
+
 		if(is_null(res)){
 			
 			return True ;
@@ -82,25 +82,25 @@ class WatchedGroupItem extends WatchedItem {
 		wfProfileIn( __METHOD__ );
 		$dbw = wfGetDB( DB_MASTER );
 		$dbw->insert( 'watchpages',
-		  array(
+			array(
 			'wp_user' => $this->id,
 			'wp_title' => $this->ti,
 			'wp_namespace' => MWNamespace::getSubject( $this->ns ),
 			'wp_groupname'	=> $this->groupname ,
 			'wp_notifytimestamp' => null
 
-		  ), __METHOD__, 'IGNORE' );
+		), __METHOD__, 'IGNORE' );
 
 		// Every single watched page needs now to be listed in watchlist;
 		// namespace:page and namespace_talk:page need separate entries:
 		$dbw->insert( 'watchpages',
-		  array(
+			array(
 			'wp_user' 		=> $this->id,
 			'wp_title' 		=> $this->ti,
 			'wp_namespace' 	=> MWNamespace::getTalk( $this->ns ),
 			'wp_groupname'	=> $this->groupname ,
 			'wp_notifytimestamp' => null
-		  ), __METHOD__, 'IGNORE' );
+		), __METHOD__, 'IGNORE' );
 
 		$this->watched = true;
 

@@ -7,7 +7,7 @@
  */
 class WatchGroupAction extends WatchAction {
 
-	protected $user, $title, $groupname , $request ;
+	protected $user, $title, $groupname , $request;
 		public function getName() {
 		return 'watchgroup';
 	}
@@ -24,9 +24,9 @@ class WatchGroupAction extends WatchAction {
 	public function show() {
 		$this->user = $this->getUser();
 		$this->checkCanExecute( $this->user );
-		$this->request = $this->getRequest() ;
-		$this->groupname = $this->request->getText( "groupname" ) ;
-		$this->title = $this->getTitle() ;
+		$this->request = $this->getRequest();
+		$this->groupname = $this->request->getText( "groupname" );
+		$this->title = $this->getTitle();
 		$this->setHeaders();
 		// Yet to take care of token and related stuff
 		$this->onSubmit( array() );
@@ -42,14 +42,14 @@ class WatchGroupAction extends WatchAction {
 	}
 
 	public static function doWatchGroup( Title $title, User $user , $GroupName ) {
-		$watchgroupitem = WatchedGroupItem::fromUserTitleGroupname( $user, $title, $GroupName ) ;
+		$watchgroupitem = WatchedGroupItem::fromUserTitleGroupname( $user, $title, $GroupName );
 		// $page = WikiPage::factory( $title );
-		$watchgroupitem->addWatchGroupPage() ;
+		$watchgroupitem->addWatchGroupPage();
 		return true;
 	}
 
 	public static function doUnwatchGroup( Title $title, User $user , $GroupName ) {
-		$watchgroupitem = WatchedGroupItem::fromUserTitleGroupname( $user, $title, $GroupName ) ;
+		$watchgroupitem = WatchedGroupItem::fromUserTitleGroupname( $user, $title, $GroupName );
 		$watchgroupitem->removeWatchGroupPage();
 		return true;
 	}
@@ -95,6 +95,6 @@ class UnwatchGroupAction extends WatchGroupAction {
 	}
 
 	public function onSuccess() {
-		$this->getOutput()->addWikiMsg( 'removed this page from the watchgroupname ' ) ;
+		$this->getOutput()->addWikiMsg( 'removed this page from the watchgroupname ' );
 	}
 }

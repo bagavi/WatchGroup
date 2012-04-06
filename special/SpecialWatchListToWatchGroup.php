@@ -7,7 +7,7 @@
  * Adds all the pages from the users current WatchList to a WatchGroup
  */
 class SpecialWatchListToWatchGroup extends SpecialPage {
-	
+
 	protected $output ;
 	protected $user ;
 	protected $request ;
@@ -69,9 +69,9 @@ class SpecialWatchListToWatchGroup extends SpecialPage {
 		}
 		return $list;
 	}
-	
-	
-	//Borrowed from SpecialEditWatchList	
+
+
+	//Borrowed from SpecialEditWatchList
 	private function checkTitle( $title, $namespace, $dbKey ) {
 		if ( $title
 			&& ( $title->isExternal()
@@ -88,9 +88,9 @@ class SpecialWatchListToWatchGroup extends SpecialPage {
 		}
 		return (bool)$title;
 	}
-	
-	
-	//Borrowed from SpecialEditWatchList	
+
+
+	//Borrowed from SpecialEditWatchList
 	private function cleanupWatchTitle($title, $namespace, $dbKey) {
 		$dbw = wfGetDB( DB_MASTER );
 		

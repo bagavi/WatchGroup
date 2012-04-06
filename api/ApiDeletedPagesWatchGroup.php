@@ -54,7 +54,7 @@ class ApiDeletedPagesWatchGroup extends ApiBase {
 	}
 
 	public function getPossibleErrors() {
-		return array() ;
+		return array();
 	}
 
 	public function getExamples() {
@@ -67,6 +67,6 @@ class ApiDeletedPagesWatchGroup extends ApiBase {
 	}
 
 	public function getVersion() {
-		return __CLASS__ ;
+		return __CLASS__;
 	}
 }

@@ -44,7 +44,7 @@ class SpecialWatchGroups extends SpecialPage {
 		if ( !is_null( $newGroup ) && $newGroup != '' ) {
 			$visibility	= $this->request->getBool( 'visible' ) ;
 			$editable	= $this->request->getBool( 'editable' ) ;
-			self::addNewGroup( $this->user  , $newGroup , $visibility , $editable ) ;
+			self::addNewGroup( $this->user , $newGroup , $visibility , $editable ) ;
 		}
 
 		/*
@@ -207,9 +207,9 @@ class SpecialWatchGroups extends SpecialPage {
 	public function addEditSubtitle() {
 		global $wgLang ;
 		$subtitle[] = Linker::linkKnown(
-				SpecialPage::getTitleFor( "EditWatchGroups" ), "EditWatchGroups"  	);
+				SpecialPage::getTitleFor( "EditWatchGroups" ), "EditWatchGroups" );
 		$subtitle[] = Linker::linkKnown(
-				SpecialPage::getTitleFor( "WatchListToWatchGroup" ), "WatchListToWatchGroup"  	);
+				SpecialPage::getTitleFor( "WatchListToWatchGroup" ), "WatchListToWatchGroup" );
 				
 		$this->output->addSubtitle( $wgLang->pipeList($subtitle )) ;
 	}

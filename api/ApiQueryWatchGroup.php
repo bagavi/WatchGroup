@@ -75,7 +75,7 @@ class ApiQueryWatchGroup extends ApiQueryGeneratorBase {
 		$res = $this->select( __METHOD__ );
 
 		foreach ( $res as $row ) {
-			$test['Group Name']		= 	$row->wtg_groupname ;
+			$test['Group Name']	= 	$row->wtg_groupname ;
 			$test['Visible']		= 	$row->wtg_visible_group ;
 			$test['Editable']		= 	$row->wtg_public_editable ;
 			$list[] = $test ;
@@ -121,7 +121,7 @@ class ApiQueryWatchGroup extends ApiQueryGeneratorBase {
 
 	public function getParamDescription() {
 		return array(
-			'owner' => 'User of the WatchGroup',
+			'owner' 	=> 'User of the WatchGroup',
 			'token'	=> 'Security code to access other uses"s WatchGroups' ,
 			'limit'	=> 'Number of watchgroups to be displayed',
 			'prop'	=> array(

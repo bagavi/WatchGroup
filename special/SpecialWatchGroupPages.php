@@ -1,10 +1,10 @@
 <?php
 /**
  * @licence GNU GPL v3+
- * @author vivekkumarbagaria  <vivekee047@gmail.com>
+ * @author vivekkumarbagaria <vivekee047@gmail.com>
  *
  * Function:
- * This SpecialPage will display all the pages of a	<groupname>
+ * This SpecialPage will display all the pages of a <groupname>
  *
  * To Do
  * Have relevant hooks between the code
@@ -22,7 +22,7 @@ class SpecialWatchgroupPages extends UnlistedSpecialPage {
 	function execute( $par ) {
 
 		/**
-		 * 	Check if user is anonymous?
+		 * Check if user is anonymous?
 		 *  If User is Anon return with a msg displaying to login
 		 */
 
@@ -77,8 +77,8 @@ class SpecialWatchgroupPages extends UnlistedSpecialPage {
 					 '*',
 					array(
 						'wp_user'		=>	$user->getId() ,
-						'wp_groupname'	=> 	$groupname ,
-						'wp_namespace'	=>  0
+						'wp_groupname'	=>	$groupname ,
+						'wp_namespace'	=>	0
 					),
 				 __METHOD__ );
 		foreach ( $res as $row ) {

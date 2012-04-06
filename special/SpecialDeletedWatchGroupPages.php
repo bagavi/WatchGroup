@@ -10,11 +10,11 @@
  * 		Database model
  * 		TABLE : watchgroup_deleted
  * 		----------------------------------------------------------------
- * 		|	wg_user		|	wg_title	|	wg_group	|
+ * 		|	wg_user		|	wg_title	|	wg_group|
  * 		----------------------------------------------------------------
- * 		|			|			|			|
- * 		|			|			|			|
- * 		|			|			|			|
+ * 		|				|			|			|
+ * 		|				|			|			|
+ * 		|				|			|			|
  * 		----------------------------------------------------------------
  * 		wg_user 	= 	User_Id
  * 		wg_title	=	title of the page
@@ -33,10 +33,10 @@
 	}
 
 	public function execute() {
- 		/**
- 		 * 	Check if user is anonymous?
- 		 *  If User is Anon return with a msg displaying to login
- 		 */
+		/**
+		 * Check if user is anonymous?
+		 * If User is Anon return with a msg displaying to login
+		 */
 		$this->setHeaders();
 		$this->outputHeader();
 		// Add feed links to the ATOM. This will give the list of pages which are deleted by the user
@@ -52,7 +52,7 @@
 	/*
 	*	This function will be executed when the submit button of the form is clicked
 	*/
-	public function addBackPages() {	
+	public function addBackPages() {
 		/*
 		 * Check the pages which have been checked in the form.
 		 * Remove these pages from the watchgroup_deleted table

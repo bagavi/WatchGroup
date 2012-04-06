@@ -8,7 +8,7 @@
  *
  * Basic list of preferences
  *	1)Viewable WatchGroup	- This would allow other users to view the watchgroup
- *	2)Public Editable   	- This will allow any user to edit the watchgroup
+ *	2)Public Editable		- This will allow any user to edit the watchgroup
  *	3)Default conditions while displaying the pages of the group
  *		a)Hide minor edit
  *		b)Hide Bot Edit
