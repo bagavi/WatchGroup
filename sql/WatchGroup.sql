@@ -6,7 +6,7 @@
 CREATE TABLE IF NOT EXISTS watchpages(
 	id			INT unsigned		NOT NULL auto_increment PRIMARY KEY ,
 	user			INT unsigned		NOT NULL ,		--	UserID ,
-	title		VARCHAR(255)		NOT NULL ,		--	Title of the page
+	title			VARCHAR(255)		NOT NULL ,		--	Title of the page
 	groupname		VARCHAR(255)		NOT NULL ,		--	Name of the group
 	namespace		INT unsigned		NOT NULL ,		--	Namespace number of the page
 	notifytimestamp	VARCHAR(15)							
@@ -21,9 +21,9 @@ CREATE UNIQUE INDEX wp_notifytimestamp	ON watchpages(notifytimestamp);
 
 
 CREATE TABLE IF NOT EXISTS watchgroups (
-	id			INT unsigned		NOT NULL auto_increment PRIMARY KEY ,
+	id		INT unsigned		NOT NULL auto_increment PRIMARY KEY ,
 	user		INT unsigned		NOT NULL ,		--	UserID
-	groupname		VARCHAR(255)		NOT NULL ,		--	Name of the group
+	groupname	VARCHAR(255)		NOT NULL ,		--	Name of the group
 	visible_group	SMALLINT unsigned	NOT NULL default 0,	--	Boolean - Can be viewed by any user
 	public_editable	SMALLINT unsigned	NOT NULL default 0	--	Boolean - Can be edited by any user
 /*Yet to include more columns for preferences of each watchgroup*/
