@@ -29,10 +29,10 @@ CREATE TABLE IF NOT EXISTS watchgroups (
 /*Yet to include more columns for preferences of each watchgroup*/
 );
 
-CREATE UNIQUE INDEX wtg_id		ON	watchgroups (wtg_id);
-CREATE INDEX wtg_user			ON	watchgroups (wtg_user);
-CREATE INDEX wtg_groupname		ON	watchgroups (wtg_groupname);
-CREATE INDEX wtg_visible_group		ON	watchgroups (wtg_visible_group);
-CREATE INDEX wtg_public_editable	ON	watchgroups (wtg_public_editable);
+CREATE UNIQUE INDEX wtg_id		ON	watchgroups (id);
+CREATE INDEX wtg_user			ON	watchgroups (user);
+CREATE INDEX wtg_groupname		ON	watchgroups (groupname);
+CREATE INDEX wtg_visible_group		ON	watchgroups (visible_group);
+CREATE INDEX wtg_public_editable	ON	watchgroups (public_editable);
 
 
