@@ -38,10 +38,10 @@ class WatchedGroupItem extends WatchedItem {
 	 * @return array
 	 */
 	private function dbCond() {
-		return array('wp_user' 		=> $this->id,
-					 'wp_namespace' => $this->ns,
-					 'wp_title' 	=> $this->ti,
-					 'wp_groupname' => $this->groupname
+		return array('wp_user' 	=> $this->id,
+					'wp_namespace' => $this->ns,
+					'wp_title' 	=> $this->ti,
+					'wp_groupname' => $this->groupname
 				 );
 	}
 
@@ -109,7 +109,7 @@ class WatchedGroupItem extends WatchedItem {
 	}
 
 	/**
-	 * Same as addWatch, only the opposite.
+	 * Same as addWatchGroup, only the opposite.
 	 * @return bool
 	 */
 	public function removeWatchGroupPage() {
