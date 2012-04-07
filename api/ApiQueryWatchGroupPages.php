@@ -44,6 +44,9 @@ class ApiQueryWatchGroupPages extends ApiQueryGeneratorBase {
 		return;
 	}
 
+	/**
+	 *  Sets parameters for querying the database
+	 */
 	public function setDatabaseParams(){
 		
 		$this->prop = array_flip( (array)$this->params['prop'] );
@@ -62,10 +65,10 @@ class ApiQueryWatchGroupPages extends ApiQueryGeneratorBase {
 		
 		//Order by namespace iff more than one namespace is provided 
 		if ( count( $this->params['namespace'] ) == 1 ) {
-			$this->addOption( 'ORDER BY', 'wp_title' );
+			$this->addOption( 'ORDER BY', 'wp_title', 'wp_groupname');
 		} 
 		else {
-			$this->addOption( 'ORDER BY', 'wp_namespace, wp_title' );
+			$this->addOption( 'ORDER BY', 'wp_namespace, wp_title', 'wp_groupname' );
 		}
 
 		if ( isset( $this->params['continue'] ) ) {
@@ -84,6 +87,10 @@ class ApiQueryWatchGroupPages extends ApiQueryGeneratorBase {
 		}
 	}
 
+	/**
+	 * Adds data obtained after querying to result object
+	 * @param $resultPageSet
+	 */
 	public function addData($resultPageSet=null){
 		$res = $this->select( __METHOD__ );
 		$count = 0;
@@ -115,6 +122,8 @@ class ApiQueryWatchGroupPages extends ApiQueryGeneratorBase {
 
 
 	}
+
+
 	public function getAllowedParams() {
 		return array(
 			'continue' => null,
@@ -157,6 +166,7 @@ class ApiQueryWatchGroupPages extends ApiQueryGeneratorBase {
 		);
 	}
 
+
 	public function getParamDescription() {
 		return array(
 			'continue' => 'When more results are available, use this to continue',
@@ -178,11 +188,14 @@ class ApiQueryWatchGroupPages extends ApiQueryGeneratorBase {
 		return 'Get Pages of a WatchGroup';
 	}
 
+
 	public function getExamples() {
 		return array(
 			'api.php?action=query&list=watchgrouppages&groupname=WatchListGroup'
 		);
 	}
+
+
 	public function getVersion() {
 		return __CLASS__;
 	}
