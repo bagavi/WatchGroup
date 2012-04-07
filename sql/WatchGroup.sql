@@ -2,7 +2,7 @@
 -- Licence: GNU GPL v3+
 -- Author Vivek Kumar Bagaria
 
- 
+
 CREATE TABLE IF NOT EXISTS watchpages(
 	id			INT unsigned		NOT NULL auto_increment PRIMARY KEY ,
 	user			INT unsigned		NOT NULL ,		--	UserID ,
@@ -34,5 +34,3 @@ CREATE INDEX wtg_user			ON	watchgroups (user);
 CREATE INDEX wtg_groupname		ON	watchgroups (groupname);
 CREATE INDEX wtg_visible_group		ON	watchgroups (visible_group);
 CREATE INDEX wtg_public_editable	ON	watchgroups (public_editable);
-
-

@@ -76,7 +76,7 @@ class SpecialWatchGroups extends SpecialPage {
 				),
 				__METHOD__
 			);
-		if(is_null($res)){
+		if(!isset($res->wtg_id)){
 			return false;
 		}
 		else{
