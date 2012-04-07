@@ -1,6 +1,5 @@
 This is a prototype of the Extension:WatchGroup. Suggestions are most welcomed
 
-
 Main Class
 	1)'WatchGroup/WatchGroup.php' ;
 Hooks
@@ -27,9 +26,11 @@ SQL
 API
 	10)'WatchGroup/api/ApiQueryWatchGroup.php' ;
 		List all the groupnames of the given user
+	11)'WatchGroup/api/ApiQueryWatchGroupPages.php' ;
+		List all the pages belonging to groupname(s)
 		
 Others
-	11)WatchGroup/WatchItems.php
+	12)WatchGroup/WatchItems.php
 		Class whoch facilitates the addition of pages in groups
 
 
