@@ -65,14 +65,14 @@ class SpecialWatchGroups extends SpecialPage {
 	/*
 	 * Returns true if the there is a watchgroup by the given groupname
 	 */
-	public static function checkGroupExists($user , $newGroup){
+	public static function checkGroupExists($user , $groupname){
 		$dbr = wfGetDB( DB_SLAVE );
 		$res = $dbr->selectRow(
 				'watchgroups',
 				'*',
 				array(
 					'wtg_user' => $user->getId(),
-					'wtg_groupname' => $newGroup
+					'wtg_groupname' => $groupname
 				),
 				__METHOD__
 			);
@@ -133,7 +133,7 @@ class SpecialWatchGroups extends SpecialPage {
 
 	}
 
-	//To change the creation of the form ,using HTML form
+	//To change the creation of the form, using HTML form
 	public function addGroupForm() {
 		$this->addnewline() ;
 		$newline = '<br>' ;
@@ -166,8 +166,6 @@ class SpecialWatchGroups extends SpecialPage {
 
 
 	public function displayGroupNames( $list ) {
-
-
 		$this->output->addHTML( "<ul>" ) ;
 		foreach ( $list as $groupname ) {
 			$noPages = self::countPages( $this->user, $groupname ) ;

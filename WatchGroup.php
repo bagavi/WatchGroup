@@ -35,6 +35,7 @@ $wgAutoloadClasses['SpecialWatchGroups']			=	$dir . 'special/SpecialWatchGroups.
 $wgAutoloadClasses['SpecialWatchGroupPages']		=	$dir . 'special/SpecialWatchGroupPages.php';
 $wgAutoloadClasses['SpecialWatchListToWatchGroup'] 	=	$dir . 'special/SpecialWatchListToWatchGroup.php';
 $wgAutoloadClasses['SpecialEditWatchGroups']		=	$dir . 'special/SpecialEditWatchGroups.php';
+$wgAutoloadClasses['SpecialEditWatchGroupPages']	=	$dir . 'special/SpecialEditWatchGroupPages.php' ;
 $wgAutoloadClasses['WatchedGroupItem']				=	$dir . 'WatchedGroupItem.php';
 $wgAutoloadClasses['WatchGroupAction']				=	$dir . 'action/WatchGroupAction.php';
 $wgAutoloadClasses['UnWatchGroupAction']			=	$dir . 'action/WatchGroupAction.php';
@@ -46,6 +47,7 @@ $wgAPIListModules['watchgrouppages']				=	'ApiQueryWatchGroupPages';
 $wgSpecialPages['WatchGroups']						=	'SpecialWatchGroups';
 $wgSpecialPages['WatchGroupPages']					=	'SpecialWatchGroupPages';
 $wgSpecialPages['EditWatchGroups']					=	'SpecialEditWatchGroups';
+$wgSpecialPages['EditWatchGroupPages']				=	'SpecialEditWatchGroupPages';
 $wgSpecialPages['WatchListToWatchGroup']			=	'SpecialWatchListToWatchGroup';
 // Hooks
 $wgHooks['LoadExtensionSchemaUpdates'][]			=	'WatchGroupHooks::onSchemaUpdate';

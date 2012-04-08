@@ -16,6 +16,8 @@ class SpecialWatchListToWatchGroup extends SpecialPage {
 	public function __construct() {
 			parent::__construct( 'WatchListToWatchGroup' );
 	}
+
+	
 	public function execute( $mode ) {
 		$this->user 	= $this->getUser() ;
 		$this->request = $this->getRequest() ;
@@ -25,22 +27,13 @@ class SpecialWatchListToWatchGroup extends SpecialPage {
 		$WatchListGroupPagelink = Linker::linkKnown(
 				SpecialPage::getTitleFor( 'WatchGroupPages', $this->WatchListGroupName ),
 			$this->WatchListGroupName) ;
-		if(SpecialWatchGroups::addNewGroup($this->user, "WatchListGroup")){
-			foreach ($watchlist as $titleText) {
-				$title = Title::newFromText($titleText) ;
-				$watchgroupitem = WatchedGroupItem::fromUserTitleGroupname( $this->user, $title, $this->WatchListGroupName ) ;
-				$watchgroupitem->addWatchGroupPage() ;
-			}
-			
-			
-			$this->output->addHTML(wfMsg('watchgroup-watchlist-is-shifted')) ;
-			$this->output->addHTML($WatchListGroupPagelink) ;
-
-		}
-		else{
-			$this->output->addHTML(wfMsg('watchgroup-watchlist-was-shifted')) ;
-			$this->output->addHTML($WatchListGroupPagelink) ;
-		}
+		SpecialWatchGroups::addNewGroup($this->user, "WatchListGroup") ;
+		$current = SpecialWatchGroupPages::extractWatchPages($this->user, $this->WatchListGroupName) ;
+		$add = array_diff( $watchlist, $current );
+		$remove = array_diff( $current, $watchlist );
+		SpecialEditWatchGroupPages::watchPages($this->user, $this->WatchListGroupName, $add) ;
+		SpecialEditWatchGroupPages::unwatchPages($this->user, $this->WatchListGroupName, $remove) ;
+		$this->output->addHTML(wfMsg('watchgroup-updatefrom-watchlist')) ;
 	}
 	
 	

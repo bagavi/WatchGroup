@@ -13,7 +13,7 @@
 		parent::__construct( 'EditParticularWatchGroup' );
 	}
 
-	public function execute() {
+	public function execute($mode) {
 
 	 	/**
 		 * 	Check if user is anonymous?
@@ -64,5 +64,84 @@
 	 * Remove those pages from the Table:watchgroup
 	 * Add the deleted pages to Table:watchgroup_deleted
 	 */
+	}
+
+
+	/**
+	 * 
+	 * Adds the given array of titles from the <groupname>
+	 * @param  $user -  User object
+	 * @param  $groupname - Name of the WatchGroup
+	 * @param  $type $titles - array of titles
+	 */
+	public static function watchPages( $user, $groupname, $titles ) {
+		//Check if the groupname exists for the given user
+		if(!SpecialWatchGroups::checkGroupExists($user, $groupname)){
+			return ;
+		}
+		$dbw = wfGetDB( DB_MASTER ,'watchpages');
+		$rows = array();
+		foreach( $titles as $title ) {
+			if( !$title instanceof Title ) {
+				$title = Title::newFromText( $title );
+			}
+			if( $title instanceof Title ) {
+				$rows[] = array(
+					'wp_user' => $user->getId(),
+					'wp_groupname' => $groupname ,
+					'wp_namespace' => ( $title->getNamespace() & ~1 ),
+					'wp_title' => $title->getDBkey(),
+					'wp_notifytimestamp' => null,
+				);
+				$rows[] = array(
+					'wp_user' => $user->getId(),
+					'wp_groupname' => $groupname ,
+					'wp_namespace' => ( $title->getNamespace()  | 1 ),
+					'wp_title' => $title->getDBkey(),
+					'wp_notifytimestamp' => null,
+				);
+			}
+		}
+		$dbw->insert( 'watchpages', $rows, __METHOD__, 'IGNORE' );
+	}
+
+
+	/**
+	 * 
+	 * Deletes the given array of titles from the <groupname>
+	 * @param  $user -  User object
+	 * @param  $groupname - Name of the WatchGroup
+	 * @param  $type $titles - array of titles
+	 */
+	public static function unwatchPages( $user, $groupname, $titles ) {
+		//Check if the groupname exists for the given user
+		if(!SpecialWatchGroups::checkGroupExists($user, $groupname)){
+			return ;
+		}
+		$dbw = wfGetDB( DB_MASTER ,'watchpages');
+		$rows = array();
+		foreach( $titles as $title ) {
+			if( !$title instanceof Title ) {
+				$title = Title::newFromText( $title );
+			}
+			if( $title instanceof Title ) {
+				$row = array(
+					'wp_user' => $user->getId(),
+					'wp_groupname' => $groupname ,
+					'wp_namespace' => ( $title->getNamespace() & ~1 ),
+					'wp_title' => $title->getDBkey(),
+					'wp_notifytimestamp' => null,
+				);
+				$dbw->delete('watchpages', $row, __METHOD__) ;
+				$row = array(
+					'wp_user' => $user->getId(),
+					'wp_groupname' => $groupname ,
+					'wp_namespace' => ( $title->getNamespace()  | 1 ),
+					'wp_title' => $title->getDBkey(),
+					'wp_notifytimestamp' => null,
+				);
+				$dbw->delete('watchpages', $row, __METHOD__) ;
+			}
+		}
 	}
 }

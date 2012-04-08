@@ -21,10 +21,6 @@ class SpecialWatchgroupPages extends UnlistedSpecialPage {
 
 	function execute( $par ) {
 
-		/**
-		 * Check if user is anonymous?
-		 *  If User is Anon return with a msg displaying to login
-		 */
 
 		$this->user = $this->getUser() ;
 		$this->output = $this->getOutput() ;
@@ -67,11 +63,12 @@ class SpecialWatchgroupPages extends UnlistedSpecialPage {
 		$this->output->addHTML( $output ) ;
 
 	}
-	public static function extractWatchPages( $user , $groupname ) {
 
+
+	public static function extractWatchPages( $user , $groupname ) {
 		$list = array() ;
 		$dbr = wfGetDB( DB_SLAVE, 'watchgroups' );
-		// given namespace zero ,just  for testing. Should work for everynamespace
+		// given namespace zero ,just  for testing. Should work for every namespace
 		$res = $dbr->select(
 					'watchpages',
 					 '*',
@@ -82,8 +79,9 @@ class SpecialWatchgroupPages extends UnlistedSpecialPage {
 					),
 				 __METHOD__ );
 		foreach ( $res as $row ) {
-			// To check the validity
-			$list[] = $row->wp_title ;
+			// Yet to check the validity
+			$title = Title::newFromText( $row->wp_title) ;
+			$list[] = $title->getPrefixedText() ;
 		}
 		return $list ;
 	}
@@ -106,30 +104,10 @@ class SpecialWatchgroupPages extends UnlistedSpecialPage {
 		return null ;
 
 	}
-	public function getUserWatchPages( $group ) {
-
-		$list = array() ;
-		$dbr = wfGetDB( DB_MASTER ) ;
-		$res = $dbr->select(
-			'watchpages' ,
-			'*' ,
-			array(
-				'wtg_user' => $this->getUser()->getId() ,
-				'wtg_groupname' => $group
-			) ,
-			__METHOD__
-		) ;
-		foreach ( $res as $row ) {
-		// Add the valid pages from $res to list
-			$list[] = $row->wtg_title ;
-		}
-
-		return $list;
-	}
-
 	/**
 	Other basic functions to be defined
 		a)Check the validity of the title
 		b)Get the time, when this article last edited.
+		c)etc
 	*/
 }
