@@ -77,7 +77,7 @@ class SpecialWatchListToWatchGroup extends UnlistedSpecialPage{
 			|| $title->getNamespace() != $namespace
 			|| $title->getDBkey() != $dbKey
 		) {
-			cleanupWatchTitle($title, $namespace, $dbKey) ;
+			$this->cleanupWatchTitle($title, $namespace, $dbKey) ;
 		}
 		return (bool)$title;
 	}
