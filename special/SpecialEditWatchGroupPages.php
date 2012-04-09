@@ -7,7 +7,7 @@
  * Function : To Edit the pages of <groupname>
  *
  */
-	class SpecialEditWatchGroupPages extends SpecialPage {
+	class SpecialEditWatchGroupPages extends UnlistedSpecialPage {
 
 	public function __construct() {
 		parent::__construct( 'EditParticularWatchGroup' );

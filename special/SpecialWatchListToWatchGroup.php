@@ -6,7 +6,7 @@
  *
  * Adds all the pages from the users current WatchList to a WatchGroup
  */
-class SpecialWatchListToWatchGroup extends SpecialPage {
+class SpecialWatchListToWatchGroup extends UnlistedSpecialPage{
 
 	protected $output ;
 	protected $user ;
