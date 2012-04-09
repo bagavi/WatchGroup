@@ -71,12 +71,12 @@ class SpecialWatchGroups extends SpecialPage {
 				'watchgroups',
 				'*',
 				array(
-					'wtg_user' => $user->getId(),
-					'wtg_groupname' => $groupname
+					'user' => $user->getId(),
+					'groupname' => $groupname
 				),
 				__METHOD__
 			);
-		if(!isset($res->wtg_id)){
+		if(!isset($res->id)){
 			return false;
 		}
 		else{
@@ -95,10 +95,10 @@ class SpecialWatchGroups extends SpecialPage {
 		
 		$dbw = wfGetDB( DB_MASTER );
 		$rows = array(
-					'wtg_user' => $user->getId(),
-					'wtg_groupname' => $newGroup ,
-					'wtg_visible_group' => $visibilty,
-					'wtg_public_editable' => $editable,
+					'user' => $user->getId(),
+					'groupname' => $newGroup ,
+					'visible_group' => $visibilty,
+					'public_editable' => $editable,
 				);
 		$dbw->insert( 'watchgroups', $rows, __METHOD__, 'IGNORE' );
 		if ( $dbw->affectedRows() ) {
@@ -113,14 +113,14 @@ class SpecialWatchGroups extends SpecialPage {
 	public static function removeGroup( $user , $Group ) {
 		$dbw = wfGetDB( DB_MASTER );
 		$rows = array(
-					'wtg_user'		=> $user->getId(),
-					'wtg_groupname'	=> $Group ,
+					'user'		=> $user->getId(),
+					'groupname'	=> $Group ,
 				);
 		$dbw->delete( 'watchgroups', $rows, __METHOD__, 'IGNORE' );
 
 		$rows = array(
-					'wp_user'		=> $user->getId(),
-					'wp_groupname'	=> $Group ,
+					'user'		=> $user->getId(),
+					'groupname'	=> $Group ,
 				);
 		$dbw->delete( 'watchpages', $rows, __METHOD__, 'IGNORE' );
 
@@ -190,13 +190,13 @@ class SpecialWatchGroups extends SpecialPage {
 				'watchgroups',
 				'*',
 				array(
-					'wtg_user' => $user->getId(),
+					'user' => $user->getId(),
 				),
 				__METHOD__
 			);
 		foreach ( $res as $row ) {
 			// Yet To check the validity of the groupname
-			$list[] = $row->wtg_groupname ;
+			$list[] = $row->groupname ;
 		}
 		return $list;
 	}
@@ -219,8 +219,8 @@ class SpecialWatchGroups extends SpecialPage {
 		# Fetch the raw count
 		$res = $dbr->select( 'watchpages', 'COUNT(*) AS count',
 			array(
-				'wp_user' => $user->getId(),
-				'wp_groupname' => $groupname,
+				'user' => $user->getId(),
+				'groupname' => $groupname,
 			)
 			, __METHOD__ );
 

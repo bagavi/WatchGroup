@@ -73,14 +73,14 @@ class SpecialWatchgroupPages extends UnlistedSpecialPage {
 					'watchpages',
 					 '*',
 					array(
-						'wp_user'		=>	$user->getId() ,
-						'wp_groupname'	=>	$groupname ,
-						'wp_namespace'	=>	0
+						'user'		=>	$user->getId() ,
+						'groupname'	=>	$groupname ,
+						'namespace'	=>	0
 					),
 				 __METHOD__ );
 		foreach ( $res as $row ) {
 			// Yet to check the validity
-			$title = Title::newFromText( $row->wp_title) ;
+			$title = Title::newFromText( $row->title) ;
 			$list[] = $title->getPrefixedText() ;
 		}
 		return $list ;
@@ -92,13 +92,13 @@ class SpecialWatchgroupPages extends UnlistedSpecialPage {
 				'watchgroups',
 				'*',
 				array(
-					'wtg_user' 		=>	$this->user->getId(),
-					'wtg_groupname'	=>	$groupname,
+					'user' 		=>	$this->user->getId(),
+					'groupname'	=>	$groupname,
 				),
 				__METHOD__
 			);
 		foreach ( $res as $group ) {
-			return $group->wtg_groupname ;
+			return $group->groupname ;
 		}
 
 		return null ;

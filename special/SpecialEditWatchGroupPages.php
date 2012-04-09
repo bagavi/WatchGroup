@@ -87,18 +87,18 @@
 			}
 			if( $title instanceof Title ) {
 				$rows[] = array(
-					'wp_user' => $user->getId(),
-					'wp_groupname' => $groupname ,
-					'wp_namespace' => ( $title->getNamespace() & ~1 ),
-					'wp_title' => $title->getDBkey(),
-					'wp_notifytimestamp' => null,
+					'user' => $user->getId(),
+					'groupname' => $groupname ,
+					'namespace' => ( $title->getNamespace() & ~1 ),
+					'title' => $title->getDBkey(),
+					'notifytimestamp' => null,
 				);
 				$rows[] = array(
-					'wp_user' => $user->getId(),
-					'wp_groupname' => $groupname ,
-					'wp_namespace' => ( $title->getNamespace()  | 1 ),
-					'wp_title' => $title->getDBkey(),
-					'wp_notifytimestamp' => null,
+					'user' => $user->getId(),
+					'groupname' => $groupname ,
+					'namespace' => ( $title->getNamespace()  | 1 ),
+					'title' => $title->getDBkey(),
+					'notifytimestamp' => null,
 				);
 			}
 		}
@@ -126,19 +126,19 @@
 			}
 			if( $title instanceof Title ) {
 				$row = array(
-					'wp_user' => $user->getId(),
-					'wp_groupname' => $groupname ,
-					'wp_namespace' => ( $title->getNamespace() & ~1 ),
-					'wp_title' => $title->getDBkey(),
-					'wp_notifytimestamp' => null,
+					'user' => $user->getId(),
+					'groupname' => $groupname ,
+					'namespace' => ( $title->getNamespace() & ~1 ),
+					'title' => $title->getDBkey(),
+					'notifytimestamp' => null,
 				);
 				$dbw->delete('watchpages', $row, __METHOD__) ;
 				$row = array(
-					'wp_user' => $user->getId(),
-					'wp_groupname' => $groupname ,
-					'wp_namespace' => ( $title->getNamespace()  | 1 ),
-					'wp_title' => $title->getDBkey(),
-					'wp_notifytimestamp' => null,
+					'user' => $user->getId(),
+					'groupname' => $groupname ,
+					'namespace' => ( $title->getNamespace()  | 1 ),
+					'title' => $title->getDBkey(),
+					'notifytimestamp' => null,
 				);
 				$dbw->delete('watchpages', $row, __METHOD__) ;
 			}

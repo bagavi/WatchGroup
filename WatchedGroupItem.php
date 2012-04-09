@@ -38,10 +38,10 @@ class WatchedGroupItem extends WatchedItem {
 	 * @return array
 	 */
 	private function dbCond() {
-		return array('wp_user' 	=> $this->id,
-					'wp_namespace' => $this->ns,
-					'wp_title' 	=> $this->ti,
-					'wp_groupname' => $this->groupname
+		return array('user' 	=> $this->id,
+					'namespace' => $this->ns,
+					'title' 	=> $this->ti,
+					'groupname' => $this->groupname
 				 );
 	}
 
@@ -54,11 +54,11 @@ class WatchedGroupItem extends WatchedItem {
 		$dbw = wfGetDB( DB_SLAVE );
 		$res = $dbw->selectRow( 'watchpages',
 			array(
-			'wp_user' => $this->id,
-			'wp_title' => $this->ti,
-			'wp_namespace' => MWNamespace::getSubject( $this->ns ),
-			'wp_groupname'	=> $this->groupname ,
-			'wp_notifytimestamp' => null
+			'user' => $this->id,
+			'title' => $this->ti,
+			'namespace' => MWNamespace::getSubject( $this->ns ),
+			'groupname'	=> $this->groupname ,
+			'notifytimestamp' => null
 
 		), __METHOD__, 'IGNORE' );
 
@@ -83,11 +83,11 @@ class WatchedGroupItem extends WatchedItem {
 		$dbw = wfGetDB( DB_MASTER );
 		$dbw->insert( 'watchpages',
 			array(
-			'wp_user' => $this->id,
-			'wp_title' => $this->ti,
-			'wp_namespace' => MWNamespace::getSubject( $this->ns ),
-			'wp_groupname'	=> $this->groupname ,
-			'wp_notifytimestamp' => null
+			'user' => $this->id,
+			'title' => $this->ti,
+			'namespace' => MWNamespace::getSubject( $this->ns ),
+			'groupname'	=> $this->groupname ,
+			'notifytimestamp' => null
 
 		), __METHOD__, 'IGNORE' );
 
@@ -95,11 +95,11 @@ class WatchedGroupItem extends WatchedItem {
 		// namespace:page and namespace_talk:page need separate entries:
 		$dbw->insert( 'watchpages',
 			array(
-			'wp_user' 		=> $this->id,
-			'wp_title' 		=> $this->ti,
-			'wp_namespace' 	=> MWNamespace::getTalk( $this->ns ),
-			'wp_groupname'	=> $this->groupname ,
-			'wp_notifytimestamp' => null
+			'user' 		=> $this->id,
+			'title' 		=> $this->ti,
+			'namespace' 	=> MWNamespace::getTalk( $this->ns ),
+			'groupname'	=> $this->groupname ,
+			'notifytimestamp' => null
 		), __METHOD__, 'IGNORE' );
 
 		$this->watched = true;
@@ -118,10 +118,10 @@ class WatchedGroupItem extends WatchedItem {
 		$dbw = wfGetDB( DB_MASTER );
 		$dbw->delete( 'watchpages',
 			array(
-			'wp_user' 		=> $this->id,
-			'wp_title' 		=> $this->ti,
-			'wp_namespace' 	=> MWNamespace::getSubject( $this->ns ),
-			'wp_groupname' 	=> $this->groupname,
+			'user' 		=> $this->id,
+			'title' 		=> $this->ti,
+			'namespace' 	=> MWNamespace::getSubject( $this->ns ),
+			'groupname' 	=> $this->groupname,
 			), __METHOD__
 		);
 		if ( $dbw->affectedRows() ) {
@@ -130,10 +130,10 @@ class WatchedGroupItem extends WatchedItem {
 
 		$dbw->delete( 'watchpages',
 			array(
-			'wp_user' 		=> $this->id,
-			'wp_title' 		=> $this->ti,
-			'wp_namespace' 	=> MWNamespace::getTalk( $this->ns ),
-			'wp_groupname' 	=> $this->groupname
+			'user' 		=> $this->id,
+			'title' 		=> $this->ti,
+			'namespace' 	=> MWNamespace::getTalk( $this->ns ),
+			'groupname' 	=> $this->groupname
 			), __METHOD__
 		);
 

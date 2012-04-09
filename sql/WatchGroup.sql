@@ -12,12 +12,12 @@ CREATE TABLE IF NOT EXISTS watchpages(
 	notifytimestamp	VARCHAR(15)							
 );
 
-CREATE UNIQUE INDEX wp_id		ON watchpages(id);
-CREATE UNIQUE INDEX wp_user		ON watchpages(user);
-CREATE UNIQUE INDEX wp_title		ON watchpages(title);
-CREATE UNIQUE INDEX wp_groupname	ON watchpages(groupname);
-CREATE UNIQUE INDEX wp_namespace	ON watchpages(namespace);
-CREATE UNIQUE INDEX wp_notifytimestamp	ON watchpages(notifytimestamp);
+CREATE UNIQUE INDEX wp_id	ON watchpages(id);
+CREATE INDEX wp_user		ON watchpages(user);
+CREATE INDEX wp_title		ON watchpages(title);
+CREATE INDEX wp_groupname	ON watchpages(groupname);
+CREATE INDEX wp_namespace	ON watchpages(namespace);
+CREATE INDEX wp_notifytimestamp	ON watchpages(notifytimestamp);
 
 
 CREATE TABLE IF NOT EXISTS watchgroups (
