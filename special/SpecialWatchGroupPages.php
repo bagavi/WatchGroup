@@ -25,7 +25,7 @@ class SpecialWatchgroupPages extends UnlistedSpecialPage {
 
 		$this->setHeaders() ;
 		$this->outputHeader();
-		$args = func_get_args();
+		$args = explode('/', $par);	
 		$groupname = $args[0];
 		$groupExists = $this->validateGroupName( $groupname ) ;
 		if ( is_null( $groupExists ) ) {
