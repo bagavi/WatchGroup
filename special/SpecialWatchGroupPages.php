@@ -59,19 +59,17 @@ class SpecialWatchgroupPages extends UnlistedSpecialPage {
 	public static function extractWatchPages( $user , $groupname ) {
 		$list = array() ;
 		$dbr = wfGetDB( DB_SLAVE, 'watchgroups' );
-		// given namespace zero ,just  for testing. Should work for every namespace
 		$res = $dbr->select(
 					'watchpages',
 					 '*',
 					array(
 						'user'		=>	$user->getId() ,
 						'groupname'	=>	$groupname ,
-						'namespace'	=>	0
 					),
 				 __METHOD__ );
 		foreach ( $res as $row ) {
 			// Yet to check the validity
-			$title = Title::newFromText( $row->title) ;
+			$title = Title::makeTitleSafe($row->namespace, $row->title) ;
 			$list[] = $title->getPrefixedText() ;
 		}
 		return $list ;
@@ -88,7 +86,8 @@ class SpecialWatchgroupPages extends UnlistedSpecialPage {
 				),
 				__METHOD__
 			);
-		//Bad code, will change it 
+
+		//Bad code, will change it soon 
 		foreach ( $res as $group ) {
 			return $group->groupname ;
 		}

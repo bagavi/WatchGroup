@@ -23,9 +23,9 @@ class WatchedGroupItem extends WatchedItem {
 
 		$wg->mUser = $user;
 		$wg->mTitle = $title;
-		$wg->id = $user->getId();
+		$wg->userId = $user->getId();
 		$wg->ns = $title->getNamespace();
-		$wg->ti = $title->getDBkey();
+		$wg->titleKey = $title->getDBkey();
 		$wg->groupname = $groupname ;
 		return $wg;
 	}
@@ -38,9 +38,9 @@ class WatchedGroupItem extends WatchedItem {
 	 * @return array
 	 */
 	private function dbCond() {
-		return array('user' 	=> $this->id,
+		return array('user' 	=> $this->userId,
 					'namespace' => $this->ns,
-					'title' 	=> $this->ti,
+					'title' 	=> $this->titleKey,
 					'groupname' => $this->groupname
 				 );
 	}
@@ -53,16 +53,16 @@ class WatchedGroupItem extends WatchedItem {
 		
 		$dbw = wfGetDB( DB_SLAVE );
 		$res = $dbw->selectRow( 'watchpages',
+			'*',
 			array(
-			'user' => $this->id,
-			'title' => $this->ti,
+			'user' => $this->userId,
+			'title' => $this->titleKey,
 			'namespace' => MWNamespace::getSubject( $this->ns ),
 			'groupname'	=> $this->groupname 
 
 		), __METHOD__, 'IGNORE' );
-
-		if(is_null(res)){
-			
+		echo count($res), "hell" ;
+		if(count($res) == 0 ){
 			return True ;
 		}
 		else{
@@ -77,12 +77,16 @@ class WatchedGroupItem extends WatchedItem {
 	 */
 	
 	public function addWatchGroupPage() {
+		//Return if the given page exists in the given WatchGroup
+		if($this->checkWatchGroupPage()){
+			return ;
+		}
 		wfProfileIn( __METHOD__ );
 		$dbw = wfGetDB( DB_MASTER );
 		$dbw->insert( 'watchpages',
 			array(
-			'user' => $this->id,
-			'title' => $this->ti,
+			'user' => $this->userId,
+			'title' => $this->titleKey,
 			'namespace' => MWNamespace::getSubject( $this->ns ),
 			'groupname'	=> $this->groupname ,
 			'notifytimestamp' => null
@@ -93,8 +97,8 @@ class WatchedGroupItem extends WatchedItem {
 		// namespace:page and namespace_talk:page need separate entries:
 		$dbw->insert( 'watchpages',
 			array(
-			'user' 		=> $this->id,
-			'title' 		=> $this->ti,
+			'user' 		=> $this->userId,
+			'title' 		=> $this->titleKey,
 			'namespace' 	=> MWNamespace::getTalk( $this->ns ),
 			'groupname'	=> $this->groupname ,
 			'notifytimestamp' => null
@@ -116,8 +120,8 @@ class WatchedGroupItem extends WatchedItem {
 		$dbw = wfGetDB( DB_MASTER );
 		$dbw->delete( 'watchpages',
 			array(
-			'user' 		=> $this->id,
-			'title' 		=> $this->ti,
+			'user' 		=> $this->userId,
+			'title' 		=> $this->titleKey,
 			'namespace' 	=> MWNamespace::getSubject( $this->ns ),
 			'groupname' 	=> $this->groupname,
 			), __METHOD__
@@ -128,8 +132,8 @@ class WatchedGroupItem extends WatchedItem {
 
 		$dbw->delete( 'watchpages',
 			array(
-			'user' 		=> $this->id,
-			'title' 		=> $this->ti,
+			'user' 		=> $this->userId,
+			'title' 		=> $this->titleKey,
 			'namespace' 	=> MWNamespace::getTalk( $this->ns ),
 			'groupname' 	=> $this->groupname
 			), __METHOD__

@@ -97,7 +97,7 @@ class SpecialWatchGroups extends SpecialPage {
 		return (bool)$dbw->delete( 'watchgroups', $rows, __METHOD__, 'IGNORE' );
 	}
 
-	//To change the creation of the form, using HTML form
+	//To use HTMLForm instead of Xml.
 	public function addGroupForm() {
 		$this->addnewline() ;
 		$newline = '<br>' ;
@@ -190,7 +190,7 @@ class SpecialWatchGroups extends SpecialPage {
 
 		$row = $dbr->fetchObject( $res );
 		$count = $row->count;
-		//Each title has its maipage and talk page in the WatchGroup, so dividing by two
+		//Each title has its mainpage and talk page in the WatchGroup, so dividing by two
 		return floor( $count / 2 );
 	}
 
