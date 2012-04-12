@@ -1,6 +1,6 @@
 -- MySQL version of the database schema for the WatchGroup Extension
 -- Licence: GNU GPL v3+
--- Author Vivek Kumar Bagaria
+-- Author Vivek Kumar Bagaria <vivekee047@gmail.com>
 
 
 CREATE TABLE IF NOT EXISTS watchpages(
