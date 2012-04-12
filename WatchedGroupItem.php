@@ -19,8 +19,8 @@ class WatchedGroupItem extends WatchedItem {
 	 */
 
 	public static function fromUserTitleGroupname( $user, $title , $groupname ) {
-		$wg = new WatchedGroupItem;
 
+		$wg = new WatchedGroupItem;
 		$wg->mUser = $user;
 		$wg->mTitle = $title;
 		$wg->userId = $user->getId();
@@ -61,8 +61,8 @@ class WatchedGroupItem extends WatchedItem {
 			'groupname'	=> $this->groupname 
 
 		), __METHOD__, 'IGNORE' );
-		echo count($res), "hell" ;
-		if(count($res) == 0 ){
+		
+		if( isset($res->id)  ){
 			return True ;
 		}
 		else{

@@ -17,7 +17,6 @@ class SpecialWatchListToWatchGroup extends UnlistedSpecialPage{
 
 	
 	public function execute( $mode ) {
-		$this->getRequest() = $this->getRequest() ;
 		$watchlist = $this->getWatchlist() ;
 		$WatchListGroupPagelink = Linker::linkKnown(
 				SpecialPage::getTitleFor( 'WatchGroupPages', $this->WatchListGroupName ),
@@ -29,6 +28,7 @@ class SpecialWatchListToWatchGroup extends UnlistedSpecialPage{
 		SpecialEditWatchGroupPages::watchPages($this->getUser(), $this->WatchListGroupName, $add) ;
 		SpecialEditWatchGroupPages::unwatchPages($this->getUser(), $this->WatchListGroupName, $remove) ;
 		$this->getOutput()->addHTML(wfMsg('watchgroup-updatefrom-watchlist')) ;
+		$this->addViewSubtitle() ;
 	}
 	
 	
@@ -59,6 +59,18 @@ class SpecialWatchListToWatchGroup extends UnlistedSpecialPage{
 	}
 
 
+	
+	public function addViewSubtitle() {
+		global $wgLang ;
+		$subtitle[] = Linker::linkKnown(
+				SpecialPage::getTitleFor( "WatchGroups" ), "ViewAllWatchGroup"  	);
+		$subtitle[] = Linker::linkKnown(
+				SpecialPage::getTitleFor( "WatchGroupPages" ,$this->WatchListGroupName), "WatchList"  	);
+		$this->getOutput()->addSubtitle( $wgLang->pipeList($subtitle )) ;
+		
+	}
+	
+	
 	//Borrowed from SpecialEditWatchList
 	private function checkTitle( $title, $namespace, $dbKey ) {
 		if ( $title

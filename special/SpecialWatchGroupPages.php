@@ -28,7 +28,7 @@ class SpecialWatchgroupPages extends UnlistedSpecialPage {
 		$args = explode('/', $par);	
 		$groupname = $args[0];
 		$groupExists = $this->validateGroupName( $groupname ) ;
-		if (  $groupExists  ) {
+		if ( !$groupExists ) {
 			$this->getOutput()->addHTML( "No such group exists" );
 			return ;
 		}
@@ -36,7 +36,7 @@ class SpecialWatchgroupPages extends UnlistedSpecialPage {
 		$watchPages = $this->extractWatchPages( $this->getUser() , $groupname ) ;
 
 		$this->displayPages( $watchPages ) ;
-
+		$this->addViewSubtitle() ;
 		// To add feed links to the ATOM. This will give the list of pages of the particular group.
 		//To add conditions on the type of page. For eg, bot-edited, minor edit.
 	}
@@ -85,10 +85,8 @@ class SpecialWatchgroupPages extends UnlistedSpecialPage {
 					'groupname'	=>	$groupname,
 				),
 				__METHOD__
-			);
-		
+			); 
 		return (bool)$res;
-		//Bad code, will change it soon 
 	}
 	
 	
@@ -104,10 +102,17 @@ class SpecialWatchgroupPages extends UnlistedSpecialPage {
 			return;
 	}
 	
+
+	public function addViewSubtitle() {
+		$subtitle = Linker::linkKnown(
+				SpecialPage::getTitleFor( "WatchGroups" ), "ViewWatchGroup"  	);
+		$this->getOutput()->addSubtitle( $subtitle ) ;
+	}
+	
 	/**
 	Other basic functions to be defined
 		a)Check the validity of the title
 		b)Get the time, when this article last edited.
 		c)etc
 	*/
-}
+		}
