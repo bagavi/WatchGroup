@@ -12,25 +12,15 @@
 
 class SpecialWatchGroups extends SpecialPage {
 
-	protected $output ;
-	protected $user ;
-	protected $request ;
 	public function __construct() {
 			parent::__construct( 'WatchGroups' );
 	}
 
-
-	public function addnewline() {
-		$this->output->addHTML( '<br>' ) ;
-	}
-
+	
 	public function execute( $mode ) {
-		$this->user 	= $this->getUser() ;
-		$this->request = $this->getRequest() ;
-		$this->output = $this->getOutput() ;
 
-		if ( $this->user->isAnon() ) {
-			self::userIsAnon() ;
+		if ( $this->getUser()->isAnon() ) {
+			$this->userIsAnon() ;
 			return ;
 		}
 		
@@ -40,26 +30,25 @@ class SpecialWatchGroups extends SpecialPage {
 		/*
 		 * Checking whether a new group is added
 		 */
-		$newGroup 	= $this->request->getText( 'newgroup', null ) ;
+		$newGroup 	= $this->getRequest()->getText( 'newgroup', null ) ;
 		if ( !is_null( $newGroup ) && $newGroup != '' ) {
-			$visibility	= $this->request->getBool( 'visible' ) ;
-			$editable	= $this->request->getBool( 'editable' ) ;
-			self::addNewGroup( $this->user , $newGroup , $visibility , $editable ) ;
+			$visibility	= $this->getRequest()->getBool( 'visible' ) ;
+			$editable	= $this->getRequest()->getBool( 'editable' ) ;
+			self::addNewGroup( $this->getUser() , $newGroup , $visibility , $editable ) ;
 		}
 
 		/*
 		 * Display the users Group
 		 */
-		$list = self::ExtractWatchGroup( $this->user );
+		$list = self::ExtractWatchGroup( $this->getUser() );
 		if ( count( $list ) == 0 ) {
-			$this->output->addWikiMsg( 'nowatchgroup' );
+			$this->getOutput()->addWikiMsg( 'nowatchgroup' );
 		}
 		else {
-			$this->output->addWikiMsg( 'watchgroup-head' );
+			$this->getOutput()->addWikiMsg( 'watchgroup-head' );
 		}
 		$this->displayGroupNames( $list ) ;
 		$this->addGroupForm();
-		$this->addTable() ;
 	}
 
 	/*
@@ -76,12 +65,7 @@ class SpecialWatchGroups extends SpecialPage {
 				),
 				__METHOD__
 			);
-		if(!isset($res->id)){
-			return false;
-		}
-		else{
-			return true ;
-		}
+		return (bool)$res ;
 	}
 	
 	/*
@@ -100,13 +84,7 @@ class SpecialWatchGroups extends SpecialPage {
 					'visible_group' => $visibilty,
 					'public_editable' => $editable,
 				);
-		$dbw->insert( 'watchgroups', $rows, __METHOD__, 'IGNORE' );
-		if ( $dbw->affectedRows() ) {
-			return true ;
-		}
-		else {
-			return false ;
-		}
+		return (bool)$dbw->insert( 'watchgroups', $rows, __METHOD__, 'IGNORE' );
 	}
 
 	
@@ -116,28 +94,14 @@ class SpecialWatchGroups extends SpecialPage {
 					'user'		=> $user->getId(),
 					'groupname'	=> $Group ,
 				);
-		$dbw->delete( 'watchgroups', $rows, __METHOD__, 'IGNORE' );
-
-		$rows = array(
-					'user'		=> $user->getId(),
-					'groupname'	=> $Group ,
-				);
-		$dbw->delete( 'watchpages', $rows, __METHOD__, 'IGNORE' );
-
-		if ( $dbw->affectedRows() ) {
-			return true ;
-		}
-		else {
-			return false ;
-		}
-
+		return (bool)$dbw->delete( 'watchgroups', $rows, __METHOD__, 'IGNORE' );
 	}
 
 	//To change the creation of the form, using HTML form
 	public function addGroupForm() {
 		$this->addnewline() ;
 		$newline = '<br>' ;
-		$this->output->addhtml( Html::rawElement( 'div',	array( 'class' => 'mw-watchgroup-addgroup-title' ), wfMsg( 'watchgroup-add-new' ) ) );
+		$this->getOutput()->addhtml( Html::rawElement( 'div',	array( 'class' => 'mw-watchgroup-addgroup-title' ), wfMsg( 'watchgroup-add-new' ) ) );
 		$form	 = Xml::openElement( 'form', array( 'method'	=> 'post',
 													'action'	=> $this->getTitle()->getLocalUrl(),
 													'id'		=> 'mw-watchgroup-submit' ) ) ;
@@ -148,11 +112,11 @@ class SpecialWatchGroups extends SpecialPage {
 		$form 	.= Xml::submitButton( wfMsg( 'watchgroup-add-form-add-group' ) ) ;
 		$form 	.= Xml::closeElement( 'form' ) ;
 
-		$this->output->addHTML( $form ) ;
+		$this->getOutput()->addHTML( $form ) ;
 	}
 
 	
-	public static function userIsAnon() {
+	public function userIsAnon() {
 		$this->getOutput()->setPageTitle( $this->msg( 'watchgroup-nologin' ) );
 			$llink = Linker::linkKnown(
 				SpecialPage::getTitleFor( 'Userlogin' ),
@@ -166,19 +130,19 @@ class SpecialWatchGroups extends SpecialPage {
 
 
 	public function displayGroupNames( $list ) {
-		$this->output->addHTML( "<ul>" ) ;
+		$this->getOutput()->addHTML( "<ul>" ) ;
 		foreach ( $list as $groupname ) {
-			$noPages = self::countPages( $this->user, $groupname ) ;
+			$noPages = self::countPages( $this->getUser(), $groupname ) ;
 			$tools = "<li>" . Linker::linkKnown(
 				SpecialPage::getTitleFor( 'WatchGroupPages', $groupname ),
 			$groupname . '(' . $noPages . ')'
 			) . '</li>';
 
-			$this->output->addhtml( Html::rawElement( 'div',
+			$this->getOutput()->addhtml( Html::rawElement( 'div',
 						array( 'class' => 'mw-watchgroup-groupnames' ), $tools )
 					);
 		}
-		$this->output->addHTML( "</ul>" ) ;
+		$this->getOutput()->addHTML( "</ul>" ) ;
 	}
 
 	
@@ -209,7 +173,7 @@ class SpecialWatchGroups extends SpecialPage {
 		$subtitle[] = Linker::linkKnown(
 				SpecialPage::getTitleFor( "WatchListToWatchGroup" ), "WatchListToWatchGroup" );
 				
-		$this->output->addSubtitle( $wgLang->pipeList($subtitle )) ;
+		$this->getOutput()->addSubtitle( $wgLang->pipeList($subtitle )) ;
 	}
 
 	
@@ -226,10 +190,12 @@ class SpecialWatchGroups extends SpecialPage {
 
 		$row = $dbr->fetchObject( $res );
 		$count = $row->count;
+		//Each title has its maipage and talk page in the WatchGroup, so dividing by two
 		return floor( $count / 2 );
 	}
 
-
-	public function addTable() {
+	
+	public function addnewline() {
+		$this->getOutput()->addHTML( '<br>' ) ;
 	}
 }

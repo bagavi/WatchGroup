@@ -8,9 +8,7 @@
  */
 class SpecialWatchListToWatchGroup extends UnlistedSpecialPage{
 
-	protected $output ;
 	protected $user ;
-	protected $request ;
 	//Name of the Group which will contain all the watchlist pages
 	protected $WatchListGroupName = "WatchListGroup" ;
 	public function __construct() {
@@ -19,21 +17,18 @@ class SpecialWatchListToWatchGroup extends UnlistedSpecialPage{
 
 	
 	public function execute( $mode ) {
-		$this->user 	= $this->getUser() ;
-		$this->request = $this->getRequest() ;
-		$this->output = $this->getOutput() ;
-			
+		$this->getRequest() = $this->getRequest() ;
 		$watchlist = $this->getWatchlist() ;
 		$WatchListGroupPagelink = Linker::linkKnown(
 				SpecialPage::getTitleFor( 'WatchGroupPages', $this->WatchListGroupName ),
-			$this->WatchListGroupName) ;
-		SpecialWatchGroups::addNewGroup($this->user, "WatchListGroup") ;
-		$current = SpecialWatchGroupPages::extractWatchPages($this->user, $this->WatchListGroupName) ;
+				$this->WatchListGroupName) ;
+		SpecialWatchGroups::addNewGroup($this->getUser(), "WatchListGroup") ;
+		$current = SpecialWatchGroupPages::extractWatchPages($this->getUser(), $this->WatchListGroupName) ;
 		$add = array_diff( $watchlist, $current );
 		$remove = array_diff( $current, $watchlist );
-		SpecialEditWatchGroupPages::watchPages($this->user, $this->WatchListGroupName, $add) ;
-		SpecialEditWatchGroupPages::unwatchPages($this->user, $this->WatchListGroupName, $remove) ;
-		$this->output->addHTML(wfMsg('watchgroup-updatefrom-watchlist')) ;
+		SpecialEditWatchGroupPages::watchPages($this->getUser(), $this->WatchListGroupName, $add) ;
+		SpecialEditWatchGroupPages::unwatchPages($this->getUser(), $this->WatchListGroupName, $remove) ;
+		$this->getOutput()->addHTML(wfMsg('watchgroup-updatefrom-watchlist')) ;
 	}
 	
 	
@@ -45,7 +40,7 @@ class SpecialWatchListToWatchGroup extends UnlistedSpecialPage{
 			'watchlist',
 			'*',
 			array(
-				'wl_user' => $this->user->getId(),
+				'wl_user' => $this->getUser()->getId(),
 			),
 			__METHOD__
 		);
@@ -87,13 +82,13 @@ class SpecialWatchListToWatchGroup extends UnlistedSpecialPage{
 	private function cleanupWatchTitle($title, $namespace, $dbKey) {
 		$dbw = wfGetDB( DB_MASTER );
 		
-		wfDebug( "User {$this->user} has broken watchlist item ns($namespace):$dbKey, "
+		wfDebug( "User {$this->getUser()} has broken watchlist item ns($namespace):$dbKey, "
 			. ( $title ? 'cleaning up' : 'deleting' ) . ".\n"
 		);
 
 		$dbw->delete( 'watchlist',
 			array(
-				'wl_user' => $this->user->getId(),
+				'wl_user' => $this->getUser()->getId(),
 				'wl_namespace' => $namespace,
 				'wl_title' => $dbKey,
 			),
@@ -101,4 +96,3 @@ class SpecialWatchListToWatchGroup extends UnlistedSpecialPage{
 		);
 	}
 }
-

@@ -11,38 +11,29 @@
  */
 
 class SpecialWatchgroupPages extends UnlistedSpecialPage {
-
-	protected $user ;
-	protected $request ;
-	protected $output ;
+	
 	public function __construct( $page = 'WatchGroupPages' ) {
 		parent::__construct( $page );
 	}
 
 	function execute( $par ) {
 
-
-		$this->user = $this->getUser() ;
-		$this->output = $this->getOutput() ;
-
-		if ( $this->user->isAnon() ) {
-			SpecialWatchGroups::userIsAnon() ;
+		if ( $this->getUser()->isAnon() ) {
+			$this->userIsAnon() ;
 			return ;
 		}
 
 		$this->setHeaders() ;
-		$this->outputHeader() ;
-
-
+		$this->outputHeader();
 		$args = func_get_args();
-		$groupname = $args[0] ; ;
+		$groupname = $args[0];
 		$groupExists = $this->validateGroupName( $groupname ) ;
 		if ( is_null( $groupExists ) ) {
-			$this->output->addHTML( "No such group exists" );
+			$this->getOutput()->addHTML( "No such group exists" );
 			return ;
 		}
-		$this->output->setPageTitle( $groupname ) ;
-		$watchPages = $this->extractWatchPages( $this->user , $groupname ) ;
+		$this->getOutput()->setPageTitle( $groupname ) ;
+		$watchPages = $this->extractWatchPages( $this->getUser() , $groupname ) ;
 
 		$this->displayPages( $watchPages ) ;
 
@@ -60,7 +51,7 @@ class SpecialWatchgroupPages extends UnlistedSpecialPage {
 					. ")</li>\n";
 		}
 		$output .= "</ul>\n";
-		$this->output->addHTML( $output ) ;
+		$this->getOutput()->addHTML( $output ) ;
 
 	}
 
@@ -92,11 +83,12 @@ class SpecialWatchgroupPages extends UnlistedSpecialPage {
 				'watchgroups',
 				'*',
 				array(
-					'user' 		=>	$this->user->getId(),
+					'user' 		=>	$this->getUser()->getId(),
 					'groupname'	=>	$groupname,
 				),
 				__METHOD__
 			);
+		//Bad code, will change it 
 		foreach ( $res as $group ) {
 			return $group->groupname ;
 		}
@@ -104,6 +96,20 @@ class SpecialWatchgroupPages extends UnlistedSpecialPage {
 		return null ;
 
 	}
+	
+	
+	public function userIsAnon() {
+		$this->getOutput()->setPageTitle( $this->msg( 'watchgroup-nologin' ) );
+			$llink = Linker::linkKnown(
+				SpecialPage::getTitleFor( 'Userlogin' ),
+				$this->msg( 'loginreqlink' )->escaped(),
+				array(),
+				array( 'returnto' => $this->getTitle()->getPrefixedText() )
+			);
+			$this->getOutput()->addHTML( $this->msg( 'watchgroup-listanontext' )->rawParams( $llink )->parse() );
+			return;
+	}
+	
 	/**
 	Other basic functions to be defined
 		a)Check the validity of the title

@@ -57,8 +57,7 @@ class WatchedGroupItem extends WatchedItem {
 			'user' => $this->id,
 			'title' => $this->ti,
 			'namespace' => MWNamespace::getSubject( $this->ns ),
-			'groupname'	=> $this->groupname ,
-			'notifytimestamp' => null
+			'groupname'	=> $this->groupname 
 
 		), __METHOD__, 'IGNORE' );
 
@@ -67,7 +66,6 @@ class WatchedGroupItem extends WatchedItem {
 			return True ;
 		}
 		else{
-			echo "Pages exists in this group" ;
 			return False ;
 		}
 	}

@@ -8,27 +8,19 @@
  */
 class SpecialEditWatchGroups extends SpecialPage {
 
-	protected $output ;
-	protected $user ;
-	protected $request ;
-
 	public function __construct() {
 		parent::__construct( 'EditWatchGroups' );
 	}
 
 	public function execute( $mode ) {
-
-		$this->user 	= $this->getUser() ;
-		if ( $this->user->isAnon() ) {
-			SpecialWatchGroups::userIsAnon() ;
+		if ( $this->getUser()->isAnon() ) {
+			$this->userIsAnon() ;
 			return ;
 		}
 
-		$this->request = $this->getRequest() ;
-		$this->output = $this->getOutput() ;
 		$this->setHeaders();
-		$this->outputHeader();
-		$list = SpecialWatchGroups::ExtractWatchGroup( $this->user );
+		$this->outputHeader() ;
+		$list = SpecialWatchGroups::ExtractWatchGroup( $this->getUser() );
 		$this->CreateEditForm( $list ) ;
 		$this->addViewSubtitle();
 	}
@@ -53,7 +45,7 @@ class SpecialEditWatchGroups extends SpecialPage {
 
 	public function submitRaw( $data ) {
 		$wanted = explode( "\n" , trim( $data['Titles'] ) );
-		$current = SpecialWatchGroups::ExtractWatchGroup( $this->user ) ;
+		$current = SpecialWatchGroups::ExtractWatchGroup( $this->getUser() ) ;
 		if ( count( $wanted ) > 0 ) {
 			$add = array_diff( $wanted, $current );
 			$remove = array_diff( $current, $wanted );
@@ -63,27 +55,27 @@ class SpecialEditWatchGroups extends SpecialPage {
 			if ( count( $remove ) > 0 ) {
 				$this->removeGroups( $remove );
 			}
-			$this->user->invalidateCache();
+			$this->getUser()->invalidateCache();
 
 		} else {
 			$this->clearWatchGroups();
 			$this->getUser()->invalidateCache();
 		}
 
-		$this->output->addHTML( "Groups have been added and removed as you wished" ) ;
+		$this->getOutput()->addHTML( "Groups have been added and removed as you wished" ) ;
 	}
 
 
 	public function addGroups( $list ) {
 		foreach ( $list as $group ) {
-			SpecialWatchGroups::addNewGroup( $this->user , $group ) ;
+			SpecialWatchGroups::addNewGroup( $this->getUser() , $group ) ;
 		}
 	}
 
 
 	public function removeGroups( $list ) {
 		foreach ( $list as $group ) {
-			SpecialWatchGroups::removeGroup( $this->user, $group ) ;
+			SpecialWatchGroups::removeGroup( $this->getUser(), $group ) ;
 		}
 	}
 
@@ -101,6 +93,20 @@ class SpecialEditWatchGroups extends SpecialPage {
 	public function addViewSubtitle() {
 		$subtitle = Linker::linkKnown(
 				SpecialPage::getTitleFor( "WatchGroups" ), "ViewWatchGroup"  	);
-		$this->output->addSubtitle( $subtitle ) ;
+		$this->getOutput()->addSubtitle( $subtitle ) ;
 	}
+	
+	
+	public function userIsAnon() {
+		$this->getOutput()->setPageTitle( $this->msg( 'watchgroup-nologin' ) );
+			$llink = Linker::linkKnown(
+				SpecialPage::getTitleFor( 'Userlogin' ),
+				$this->msg( 'loginreqlink' )->escaped(),
+				array(),
+				array( 'returnto' => $this->getTitle()->getPrefixedText() )
+			);
+			$this->getOutput()->addHTML( $this->msg( 'watchgroup-listanontext' )->rawParams( $llink )->parse() );
+			return;
+	}
+	
 }
