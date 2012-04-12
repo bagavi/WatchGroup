@@ -14,7 +14,7 @@ class WatchGroupAction extends WatchAction {
 
 
 	protected function getDescription() {
-		return wfMsgHtml( 'addtowatchgroup' );
+		//return wfMsgHtml( 'addtowatchgroup' );
 	}
 
 
@@ -67,7 +67,15 @@ class WatchGroupAction extends WatchAction {
 
 
 	public function onSuccess() {
+		$this->addViewSubtitle() ;
 		$this->getOutput()->addHTML( 'This page has been added to the given groupname ' );
+	}
+
+
+	public function addViewSubtitle() {
+		$subtitle = Linker::linkKnown(
+				SpecialPage::getTitleFor( "WatchGroupPages" ,$this->groupname), $this->groupname  	);
+		$this->getOutput()->addSubtitle($subtitle) ;
 	}
 }
 

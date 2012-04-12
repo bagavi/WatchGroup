@@ -92,7 +92,7 @@ class SpecialEditWatchGroups extends SpecialPage {
 	
 	public function addViewSubtitle() {
 		$subtitle = Linker::linkKnown(
-				SpecialPage::getTitleFor( "WatchGroups" ), "ViewWatchGroup"  	);
+				SpecialPage::getTitleFor( "WatchGroups" ), "ViewWatchAllGroup"  	);
 		$this->getOutput()->addSubtitle( $subtitle ) ;
 	}
 	
