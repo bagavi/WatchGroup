@@ -28,7 +28,7 @@ class SpecialWatchgroupPages extends UnlistedSpecialPage {
 		$args = explode('/', $par);	
 		$groupname = $args[0];
 		$groupExists = $this->validateGroupName( $groupname ) ;
-		if ( is_null( $groupExists ) ) {
+		if (  $groupExists  ) {
 			$this->getOutput()->addHTML( "No such group exists" );
 			return ;
 		}
@@ -86,14 +86,9 @@ class SpecialWatchgroupPages extends UnlistedSpecialPage {
 				),
 				__METHOD__
 			);
-
+		
+		return (bool)$res;
 		//Bad code, will change it soon 
-		foreach ( $res as $group ) {
-			return $group->groupname ;
-		}
-
-		return null ;
-
 	}
 	
 	
