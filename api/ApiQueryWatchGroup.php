@@ -53,24 +53,24 @@ class ApiQueryWatchGroup extends ApiQueryGeneratorBase {
 		$prop = array_flip( (array)$this->params['prop'] );
 		$this->selectNamedDB( 'watchgroups', DB_SLAVE, 'watchgroups' );
 		$this->addTables( 'watchgroups' ) ;
-		$this->addWhereFld( 'wtg_user', $this->owner->getId() );
-		$this->addFields( array( 'wtg_groupname', 'wtg_visible_group' , 'wtg_public_editable' ) );
+		$this->addWhereFld( 'user', $this->owner->getId() );
+		$this->addFields( array( 'groupname', 'visible_group' , 'public_editable' ) );
 
 		// Adding visible and editable params
 		if ( isset( $prop['onlypublicview'] ) ) {
-			$this->addWhereIf( 'wtg_visible_group', 1 );
+			$this->addWhereIf( 'visible_group', 1 );
 		}
 		elseif ( isset( $prop['skippublicview'] ) ) {
-			$this->addWhereIf( 'wtg_visible_group', 0 );
+			$this->addWhereIf( 'visible_group', 0 );
 		}
 
 
 		if ( isset( $prop['onlypubliceditable'] ) ) {
-			$this->addWhereIf( 'wtg_public_editable', 1 );
+			$this->addWhereIf( 'public_editable', 1 );
 		}
 
 		elseif ( isset( $prop['skippubliceditable'] ) ) {
-			$this->addWhereIf( 'wtg_public_editable', 0 );
+			$this->addWhereIf( 'public_editable', 0 );
 		}
 		$res = $this->select( __METHOD__ );
 
