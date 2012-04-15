@@ -54,21 +54,21 @@ class ApiQueryWatchGroupPages extends ApiQueryGeneratorBase {
 
 		$this->selectNamedDB( 'watchpages', DB_SLAVE, 'watchpages' );
 		$this->addTables( 'watchpages' );
-		$this->addFields( array( 'wp_namespace', 'wp_title' ) );
-		$this->addFieldsIf( 'wp_notifytimestamp', isset( $this->prop['changed'] ) );
-		$this->addWhereFld( 'wp_user', $this->user->getId() );
-		$this->addWhereFld( 'wp_namespace', $this->params['namespace'] );
-		$this->addWhereFld(	'wp_groupname', $this->params['groupname']);
-		$this->addWhereIf( 'wp_notifytimestamp IS NOT NULL', isset( $this->show['changed'] ) );
-		$this->addWhereIf( 'wp_notifytimestamp IS NULL', isset( $this->show['!changed'] ) );
+		$this->addFields( array( 'namespace', 'title' ) );
+		$this->addFieldsIf( 'notifytimestamp', isset( $this->prop['changed'] ) );
+		$this->addWhereFld( 'user', $this->user->getId() );
+		$this->addWhereFld( 'namespace', $this->params['namespace'] );
+		$this->addWhereFld( 'groupname', $this->params['groupname']);
+		$this->addWhereIf( 'notifytimestamp IS NOT NULL', isset( $this->show['changed'] ) );
+		$this->addWhereIf( 'notifytimestamp IS NULL', isset( $this->show['!changed'] ) );
 		$this->addOption( 'LIMIT', $this->params['limit'] + 1 );
 		
 		//Order by namespace iff more than one namespace is provided 
 		if ( count( $this->params['namespace'] ) == 1 ) {
-			$this->addOption( 'ORDER BY', 'wp_title', 'wp_groupname');
+			$this->addOption( 'ORDER BY', 'title', 'groupname');
 		} 
 		else {
-			$this->addOption( 'ORDER BY', 'wp_namespace, wp_title', 'wp_groupname' );
+			$this->addOption( 'ORDER BY', 'namespace, title', 'groupname' );
 		}
 
 		if ( isset( $this->params['continue'] ) ) {
@@ -81,8 +81,8 @@ class ApiQueryWatchGroupPages extends ApiQueryGeneratorBase {
 			$namespace = intval( $cont[0] );
 			$title = $this->getDB()->strencode( $this->titleToKey( $cont[1] ) );
 			$this->addWhere(
-				"wp_namespace > '$namespace' OR " .
-				"(wp_namespace = '$namespace' AND wp_title >= '$title')"
+				"namespace > '$namespace' OR " .
+				"(namespace = '$namespace' AND title >= '$title')"
 			);
 		}
 	}
