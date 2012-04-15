@@ -75,9 +75,9 @@ class ApiQueryWatchGroup extends ApiQueryGeneratorBase {
 		$res = $this->select( __METHOD__ );
 
 		foreach ( $res as $row ) {
-			$test['Group Name']	=	$row->wtg_groupname ;
-			$test['Visible']	=	$row->wtg_visible_group ;
-			$test['Editable']	=	$row->wtg_public_editable ;
+			$test['Group Name']	=	$row->groupname ;
+			$test['Visible']	=	$row->visible_group ;
+			$test['Editable']	=	$row->public_editable ;
 			$list[] = $test ;
 		}
 
