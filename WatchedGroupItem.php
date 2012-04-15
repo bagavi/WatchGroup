@@ -61,7 +61,6 @@ class WatchedGroupItem extends WatchedItem {
 			'groupname'	=> $this->groupname 
 
 		), __METHOD__, 'IGNORE' );
-		echo count($res), "hell" ;
 		if(count($res) == 0 ){
 			return True ;
 		}
