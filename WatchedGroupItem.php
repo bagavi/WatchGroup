@@ -60,8 +60,7 @@ class WatchedGroupItem extends WatchedItem {
 			'namespace' => MWNamespace::getSubject( $this->ns ),
 			'groupname'	=> $this->groupname 
 
-		), __METHOD__, 'IGNORE' );
-		
+		), __METHOD__, 'IGNORE' );		
 		if( isset($res->id)  ){
 			return True ;
 		}
