@@ -65,6 +65,7 @@ class SpecialWatchgroupPages extends UnlistedSpecialPage {
 					array(
 						'user'		=>	$user->getId() ,
 						'groupname'	=>	$groupname ,
+						'namespace'	=>	0,
 					),
 				 __METHOD__ );
 		foreach ( $res as $row ) {
