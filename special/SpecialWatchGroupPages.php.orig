@@ -27,8 +27,7 @@ class SpecialWatchgroupPages extends UnlistedSpecialPage {
 		$this->outputHeader();
 		$args = explode('/', $par);	
 		$groupname = $args[0];
-		$groupExists = $this->validateGroupName( $groupname ) ;
-		if ( !$groupExists ) {
+		if ( !$this->validateGroupName( $groupname  ) {
 			$this->getOutput()->addHTML( "No such group exists" );
 			return ;
 		}

@@ -58,7 +58,11 @@ class ApiQueryWatchGroupPages extends ApiQueryGeneratorBase {
 		$this->addFieldsIf( 'notifytimestamp', isset( $this->prop['changed'] ) );
 		$this->addWhereFld( 'user', $this->user->getId() );
 		$this->addWhereFld( 'namespace', $this->params['namespace'] );
+<<<<<<< HEAD
+		$this->addWhereFld(	'groupname', $this->params['groupname']);
+=======
 		$this->addWhereFld( 'groupname', $this->params['groupname']);
+>>>>>>> 3c7a4e92909657e7e7f5a87c6e99b19b0f577a96
 		$this->addWhereIf( 'notifytimestamp IS NOT NULL', isset( $this->show['changed'] ) );
 		$this->addWhereIf( 'notifytimestamp IS NULL', isset( $this->show['!changed'] ) );
 		$this->addOption( 'LIMIT', $this->params['limit'] + 1 );
@@ -130,7 +134,7 @@ class ApiQueryWatchGroupPages extends ApiQueryGeneratorBase {
 			'namespace' => array(
 				ApiBase::PARAM_ISMULTI => true,
 				ApiBase::PARAM_TYPE => 'namespace',
-				ApiBase::PARAM_DFLT => 0
+				ApiBase::PARAM_DFLT => 1
 			),
 			'limit' => array(
 				ApiBase::PARAM_DFLT => 10,

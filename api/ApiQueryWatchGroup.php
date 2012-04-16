@@ -139,8 +139,8 @@ class ApiQueryWatchGroup extends ApiQueryGeneratorBase {
 
 	public function getExamples() {
 		return array(
-			'api.php?action=query&list=watchgroup',
-			'api.php?action=query&list=watchgroup&prop=skippublicview'
+			'api.php?action=query&list=watchgroups',
+			'api.php?action=query&list=watchgroups&prop=skippublicview'
 		);
 	}
 	public function getVersion() {
