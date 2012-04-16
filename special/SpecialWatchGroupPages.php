@@ -115,4 +115,4 @@ class SpecialWatchgroupPages extends UnlistedSpecialPage {
 		b)Get the time, when this article last edited.
 		c)etc
 	*/
-		}
+}

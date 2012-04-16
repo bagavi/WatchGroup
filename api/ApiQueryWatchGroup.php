@@ -8,7 +8,7 @@
 /**
  * Returns the list of WatchGroups a user
  * @licence GNU GPL v3+ 
- * @ingroup API
+ * @ingroup API 
  */
 class ApiQueryWatchGroup extends ApiQueryGeneratorBase {
 
@@ -80,7 +80,6 @@ class ApiQueryWatchGroup extends ApiQueryGeneratorBase {
 			$test['Editable']	=	$row->public_editable ;
 			$list[] = $test ;
 		}
-
 		return $list;
 	}
 
